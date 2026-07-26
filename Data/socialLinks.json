@@ -1,0 +1,200 @@
+{
+  "socialLinks": [
+    {
+      "npc": "S.E.E.S.",
+      "arcano": "Fool",
+      "nivelMaximo": 10,
+      "desbloquea": ["Susano-o"],
+      "requisitos": [{"mesMinimo": 4}]
+    },
+    {
+      "npc": "Kenji Tomochika",
+      "arcano": "Magician",
+      "nivelMaximo": 10,
+      "desbloquea": ["Futsunushi"],
+      "requisitos": [{"mesMinimo": 4}]
+    },
+    {
+      "npc": "Junpei Iori",
+      "arcano": "Magician",
+      "nivelMaximo": 5,
+      "desbloquea": ["Surt"],
+      "requisitos": [{"mesMinimo": 5}]
+    },
+    {
+      "npc": "Fuuka Yamagishi",
+      "arcano": "Priestess",
+      "nivelMaximo": 10,
+      "desbloquea": ["Scathach"],
+      "requisitos": [{"npcDependiente": "Keisuke Hiraga", "nivelNecesario": 1,"mesMinimo": 6}]
+    },
+    {
+      "npc": "Mitsuru Kirijo",
+      "arcano": "Empress",
+      "nivelMaximo": 10,
+      "desbloquea": ["Alilat"],
+      "requisitos": [{"mesMinimo": 11}]
+    },
+    {
+      "npc": "Hidetoshi Odagiri",
+      "arcano": "Emperor",
+      "nivelMaximo": 10,
+      "desbloquea": ["Odin"],
+      "requisitos": [{"mesMinimo": 4}]
+    },
+    {
+      "npc": "Akihiko Sanada",
+      "arcano": "Emperor",
+      "nivelMaximo": 5,
+      "desbloquea": ["Horus"],
+      "requisitos": [{"mesMinimo": 5}]
+    },
+    {
+      "npc": "Bunkichi y Mitsuko",
+      "arcano": "Hierophant",
+      "nivelMaximo": 10,
+      "desbloquea": ["Kohryu"],
+      "requisitos": [{"mesMinimo": 4}]
+    },
+    {
+      "npc": "Shinjiro Aragaki",
+      "arcano": "Hierophant",
+      "nivelMaximo": 5,
+      "desbloquea": ["Hell biker"],
+      "requisitos": [{"mesMinimo": 9}]
+    },
+    {
+      "npc": "Yukari Takeba",
+      "arcano": "Lovers",
+      "nivelMaximo": 10,
+      "desbloquea": ["Cybele"],
+      "requisitos": [{"mesMinimo": 7}]
+    },
+    {
+      "npc": "Kazushi Miyamoto",
+      "arcano": "Chariot",
+      "nivelMaximo": 10,
+      "desbloquea": ["Thor"],
+      "requisitos": [{"mesMinimo": 4}]
+    },
+    {
+      "npc": "Chihiro Fushimi",
+      "arcano": "Justice",
+      "nivelMaximo": 10,
+      "desbloquea": ["Melchizedek"],
+      "requisitos": [{"npcDependiente": "Hidetoshi Odagiri", "nivelNecesario": 1,"mesMinimo": 4}]
+    },
+    {
+      "npc": "Ken Amada",
+      "arcano": "Justice",
+      "nivelMaximo": 5,
+      "desbloquea": ["Michael"],
+      "requisitos": [{"mesMinimo": 9}]
+    },
+    {
+      "npc": "Maya",
+      "arcano": "Hermit",
+      "nivelMaximo": 10,
+      "desbloquea": ["Arahabaki"],
+      "requisitos": [{"mesMinimo": 4}]
+    },
+    {
+      "npc": "Keisuke Hiraga",
+      "arcano": "Fortune",
+      "nivelMaximo": 10,
+      "desbloquea": ["Lakshmi"],
+      "requisitos": [{"mesMinimo": 6}]
+    },
+    {
+      "npc": "Yuko Nishiwaki",
+      "arcano": "Strength",
+      "nivelMaximo": 10,
+      "desbloquea": ["Atavaka"],
+      "requisitos": [{"npcDependiente": "Kazushi Miyamoto", "nivelNecesario": 2,"mesMinimo": 4}]
+    },
+    {
+      "npc": "Koromaru",
+      "arcano": "Strength",
+      "nivelMaximo": 5,
+      "desbloquea": ["Byakko"],
+      "requisitos": [{"mesMinimo": 8}]
+    },
+    {
+      "npc": "Maiko Oohashi",
+      "arcano": "Hanged",
+      "nivelMaximo": 10,
+      "desbloquea": ["Attis"],
+      "requisitos": [{"mesMinimo": 5}]
+    },
+    {
+      "npc": "Pharos",
+      "arcano": "Death",
+      "nivelMaximo": 10,
+      "desbloquea": ["Thanatos"],
+      "requisitos": [{"mesMinimo": 6}]
+    },
+    {
+      "npc": "Ryoji Mochizuki",
+      "arcano": "Death",
+      "nivelMaximo": 5,
+      "desbloquea": ["Saturnus"],
+      "requisitos": [{"mesMinimo": 11}]
+    },
+    {
+      "npc": "Bebe",
+      "arcano": "Temperance",
+      "nivelMaximo": 10,
+      "desbloquea": ["Yurlungur"],
+      "requisitos": [{"npcDependiente": "Bunkichi y Mitsuko", "nivelNecesario": 3,"mesMinimo": 5}]
+    },
+    {
+      "npc": "Presidente Tanaka",
+      "arcano": "Devil",
+      "nivelMaximo": 10,
+      "desbloquea": ["Beelzebub"],
+      "requisitos": [{"npcDependiente": "Maya", "nivelNecesario": 3,"mesMinimo": 5}]
+    },
+    {
+      "npc": "Mutatsu",
+      "arcano": "Tower",
+      "nivelMaximo": 10,
+      "desbloquea": ["Chi You"],
+      "requisitos": [{"npcDependiente": "Yuko Nishiwaki", "nivelNecesario": 4,"mesMinimo": 5}]
+    },
+    {
+      "npc": "Mamoru Hayase",
+      "arcano": "Star",
+      "nivelMaximo": 10,
+      "desbloquea": ["Helel"],
+      "requisitos": [{"npcDependiente": "Kazushi Miyamoto", "nivelNecesario": 2,"mesMinimo": 8}]
+    },
+    {
+      "npc": "Nozomi Suemitsu",
+      "arcano": "Moon",
+      "nivelMaximo": 10,
+      "desbloquea": ["Sandalphon"],
+      "requisitos": [{"npcDependiente": "Kenji Tomochika", "nivelNecesario": 4,"mesMinimo": 5}]
+    },
+    {
+      "npc": "Akinari Kimiki",
+      "arcano": "Sun",
+      "nivelMaximo": 10,
+      "desbloquea": ["Asura"],
+      "requisitos": [{"npcDependiente": "Maiko Oohashi", "nivelNecesario": 3,"mesMinimo": 8}]
+    },
+    {
+      "npc": "Equipo Aniquilación de Nyx",
+      "arcano": "Judgement",
+      "nivelMaximo": 10,
+      "desbloquea": ["Messiah"],
+      "requisitos": [{"mesMinimo": 13}]
+    },
+    {
+      "npc": "Aigis",
+      "arcano": "Aeon",
+      "nivelMaximo": 10,
+      "desbloquea": ["Metatron"],
+      "requisitos": [{"mesMinimo": 13}]
+    }
+  ]
+}

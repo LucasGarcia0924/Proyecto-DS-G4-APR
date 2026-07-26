@@ -10,6 +10,7 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +50,7 @@ public class usuario {
         public List<String> equipo = new ArrayList<>(); // nombres
         public Set<String> owned = new HashSet<>();   // nombres
         public Map<String,Integer> socialLinks = new HashMap<>();
+        public int mes = 1;
         public String lastModified;
         public User() {}
 
@@ -130,6 +132,8 @@ public class usuario {
             try (DirectoryStream<Path> ds = Files.newDirectoryStream(usersDir, "*.json")) {
                 for (Path p : ds) {
                     User u = M.readValue(p.toFile(), User.class);
+                    if (u.mes <= 0) u.mes = 1;
+                    if (u.socialLinks == null) u.socialLinks = new HashMap<>();
                     users.put(u.nombreUsuario.toLowerCase(), u);
                 }
             }
@@ -209,6 +213,8 @@ public class usuario {
             this.indiceN = levelIndex;
             this.equipo = new engine.Equipo(teamCapacity);
             resolveTeamFromUser();
+            grafoS.ensureNPCsFor(usuario.socialLinks.keySet());
+            grafoS.syncLevels(usuario.socialLinks);
         }
 
         // Resuelve nombres del usuario a referencias Persona y llena Team si hay espacio
@@ -316,23 +322,45 @@ public class usuario {
             }
         }
 
+        public void printRegistryByArcana() {
+            System.out.println("Registro por arcano:");
+            Map<String, List<Persona>> porArcano = new HashMap<>();
+            for (Persona p : registro.toList()) {
+                porArcano.computeIfAbsent(p.arcano, k -> new ArrayList<>()).add(p);
+            }
+
+            List<String> arcanos = new ArrayList<>(porArcano.keySet());
+            arcanos.sort(String.CASE_INSENSITIVE_ORDER);
+
+            for (String arcano : arcanos) {
+                System.out.println("\n[" + arcano + "]");
+                for (Persona p : porArcano.get(arcano)) {
+                    System.out.println((usuario.hasOwned(p.nombre) ? "[X] " : "[ ] ") + p.nombre + " | Nivel: " + p.nivel);
+                }
+            }
+        }
+
         public boolean fuseAndReplace(String nameA, String nameB, managerUsuario um) throws IOException {
             Persona a = registro.buscarPorNombre(nameA);
             Persona b = registro.buscarPorNombre(nameB);
             if (a == null || b == null) return false;
-            // comprobar que ambos están en el equipo (por referencia)
-            boolean inTeamA = false, inTeamB = false;
-            inTeamA = isOnTeam(nameA, um);
-            inTeamB = isOnTeam(nameB, um);
-            if (!inTeamA || !inTeamB) return false;
 
-            List<String> results = indiceF.resultadoFusion(a, b);
-            if (results.isEmpty()) return false; // no hay fusión conocida
+            String resultName = indiceF.resultadoFusion(a, b);
+            if (resultName == null || resultName.isBlank()) return false; // no hay fusión conocida
 
-            String resultName = results.get(0); // tomar el primero (puedes mostrar opciones en UI)
             Persona resultPersona = registro.buscarPorNombre(resultName);
             if (resultPersona == null) {
                 // Si el resultado no existe en el registro maestro, no podemos crear uno nuevo aquí.
+                return false;
+            }
+            if (!grafoS.isFusionUnlocked(resultPersona, usuario)) {
+                String requiredNpc = resultPersona.requisitoFusion == null ? "?" : resultPersona.requisitoFusion.socialLink;
+                int nivelRequerido = grafoS.getRequiredLevel(requiredNpc);
+                System.out.println("No puedes fusionar estas personas todavía. Requiere Social Link '" + requiredNpc + "' nivel " + nivelRequerido + ".");
+                return false;
+            }
+            if (isOnTeam(resultPersona.nombre, um)){
+                System.out.println("La persona obtenida ya se encuentra en el equipo, fusión inválida.\n");
                 return false;
             }
 
@@ -355,18 +383,16 @@ public class usuario {
         }
 
         // Incrementar social link y auto registrar desbloqueos
-        public List<String> increaseSocialLinkAndHandleUnlock(String npcName, int delta, managerUsuario um) throws IOException {
+        public String increaseSocialLinkAndHandleUnlock(String npcName, int delta, managerUsuario um) throws IOException {
+            if (npcName == null || npcName.isBlank()) return null;
+            grafoS.ensureNPC(npcName);
             int nuevoNivel = usuario.increaseSocialLinkLevel(npcName, delta);
-            List<String> unlocked = grafoS.aumentarRango(npcName, delta);
-            List<String> newly = new ArrayList<>();
-            for (String nombre : unlocked) {
-                if (!usuario.hasOwned(nombre)) {
-                    usuario.registerOwned(nombre);
-                    newly.add(nombre);
-                }
+            String unlocked = grafoS.aumentarRango(npcName, delta, usuario.mes, usuario.socialLinks);
+            if (unlocked != null && !usuario.hasOwned(unlocked)) {
+                usuario.registerOwned(unlocked);
             }
             um.saveUser(usuario);
-            return newly;
+            return unlocked;
         }
     }
     public void seleccionarUsuario() throws Exception {
@@ -384,6 +410,8 @@ public class usuario {
                 case "2" : {
                     interfaz interfaz = new interfaz();
                     interfaz.crearUsuario();
+                    System.out.println("\nAhora por favor vuelve a ingresar los datos para iniciar sesión");
+                    iniciarSesion();
                     flag = false;    
                     break;
                 }
