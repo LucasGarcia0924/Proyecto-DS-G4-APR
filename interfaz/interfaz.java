@@ -112,6 +112,7 @@ public class interfaz {
         tu.equipo = new ArrayList<>(Arrays.asList("Orpheus"));
         tu.owned = new HashSet<>();
         tu.registerOwned("Orpheus");
+        tu.mes = 4;
         tu.socialLinks = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         Path socialLinksPath = Paths.get("Data/socialLinks.json");
