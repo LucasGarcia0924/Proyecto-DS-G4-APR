@@ -487,11 +487,407 @@ public class interfaz {
             System.out.println("Error al gestionar Social Links: " + e.getMessage());
         }
     }
-    public void buscarPersona() {
-        // Implementar la lógica para buscar una persona
+
+    private List<modelos.engine.Persona> cargarPersonas() throws Exception {
+        Path personasDir = Paths.get("Data/personas");
+        ObjectMapper mapper = new ObjectMapper();
+        List<modelos.engine.Persona> personas = new ArrayList<>();
+
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
+            for (Path p : ds) {
+                modelos.engine.Persona persona = mapper.readValue(p.toFile(), modelos.engine.Persona.class);
+                personas.add(persona);
+            }
+        }
+
+        return personas;
     }
+
+    private List<String> parseIngredientNames(List<String> source) {
+        List<String> ingredients = new ArrayList<>();
+        if (source == null) return ingredients;
+        for (String item : source) {
+            if (item == null) continue;
+            for (String part : item.split(",")) {
+                String name = part.trim();
+                if (!name.isEmpty()) {
+                    ingredients.add(name);
+                }
+            }
+        }
+        return ingredients;
+    }
+
+    private boolean isTeamMember(String name, usuario.UserView userView) {
+        if (name == null || name.isBlank() || userView == null) return false;
+        for (modelos.engine.Persona miembro : userView.equipo.getMiembros()) {
+            if (miembro != null && miembro.nombre != null && miembro.nombre.equalsIgnoreCase(name)) return true;
+        }
+        return false;
+    }
+
+    private String formatIngredient(String ingredient, usuario.UserView userView) {
+        if (ingredient == null || ingredient.isBlank()) return "";
+        String formatted = ingredient.trim();
+        if (isTeamMember(formatted, userView)) {
+            formatted += " (EN EQUIPO)";
+        }
+        return formatted;
+    }
+
+    private void mostrarDetallesPersona(modelos.engine.Persona persona, usuario.UserView userView) {
+        usuario.User tu = userView.usuario;
+        System.out.println("\n╔════════════════════════════════════════╗");
+        System.out.println("║          Detalles de la Persona         ║");
+        System.out.println("╚════════════════════════════════════════╝");
+        System.out.println("Nombre: " + persona.nombre);
+        System.out.println("Arcano: " + persona.arcano);
+        System.out.println("Nivel: " + persona.nivel);
+        System.out.println("Registrada: " + (tu.hasOwned(persona.nombre) ? "Sí" : "No"));
+        System.out.println("En equipo: " + (isTeamMember(persona.nombre, userView) ? "Sí" : "No"));
+
+        if (persona.estadisticas != null && !persona.estadisticas.isEmpty()) {
+            System.out.println("Estadísticas:");
+            persona.estadisticas.forEach((k, v) -> System.out.println("  - " + k + ": " + v));
+        }
+
+        if (persona.generadoPor != null && !persona.generadoPor.isEmpty()) {
+            System.out.println("\nFusiones normales para obtener a " + persona.nombre + ":");
+            int contador = 1;
+            for (modelos.engine.GeneratedByEntry entry : persona.generadoPor) {
+                List<String> ingredients = parseIngredientNames(entry.de);
+                if (ingredients.isEmpty()) continue;
+                List<String> decorated = new ArrayList<>();
+                int teamCount = 0;
+                for (String ingredient : ingredients) {
+                    if (isTeamMember(ingredient, userView)) {
+                        decorated.add(ingredient + " (EN EQUIPO)");
+                        teamCount++;
+                    } else if (tu.hasOwned(ingredient)) {
+                        decorated.add(ingredient + " (REGISTRADA)");
+                    } else {
+                        decorated.add(ingredient);
+                    }
+                }
+                String prefix = teamCount > 0 ? "* " : "  ";
+                System.out.println(prefix + contador++ + ". " + String.join(", ", decorated));
+            }
+        } else {
+            System.out.println("\nNo se encontraron fusiones normales registradas para esta persona.");
+        }
+
+        if (persona.fusionEspecial != null && !persona.fusionEspecial.isEmpty()) {
+            System.out.println("\nFusión especial disponible para esta persona:");
+            int contador = 1;
+            for (modelos.engine.specialEntry entry : persona.fusionEspecial) {
+                List<String> ingredients = parseIngredientNames(entry.de);
+                if (ingredients.isEmpty()) continue;
+                List<String> decorated = new ArrayList<>();
+                for (String ingredient : ingredients) {
+                    if (isTeamMember(ingredient, userView)) {
+                        decorated.add(ingredient + " (EN EQUIPO)");
+                    } else if (tu.hasOwned(ingredient)) {
+                        decorated.add(ingredient + " (REGISTRADA)");
+                    } else {
+                        decorated.add(ingredient);
+                    }
+                }
+                System.out.println("  " + contador++ + ". " + String.join(", ", decorated));
+            }
+        } else {
+            System.out.println("\nNo hay fusiones especiales para esta persona.");
+        }
+    }
+
+    public void buscarPersona() {
+        try {
+            usuario.managerUsuario mU = usuario.new managerUsuario();
+            usuario.User tu = mU.getUsuarioActivo();
+            if (tu == null) {
+                System.out.println("No hay usuario activo. Por favor, inicia sesión o crea un usuario.");
+                return;
+            }
+
+            List<modelos.engine.Persona> personas = cargarPersonas();
+            modelos.engine.Registro registro = new modelos.engine.Registro();
+            registro.buildFrom(personas);
+            modelos.engine.indiceFusiones indiceF = new modelos.engine.indiceFusiones();
+            modelos.engine.grafoSocialLinks socialGraph = new modelos.engine.grafoSocialLinks();
+            modelos.engine.indicePorNivel levelIndex = new modelos.engine.indicePorNivel();
+            indiceF.construirDe(personas);
+            levelIndex.buildFrom(personas);
+            Path socialLinksPath = Paths.get("Data/socialLinks.json");
+            if (Files.exists(socialLinksPath)) {
+                modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+            } else {
+                socialGraph.construirDesdePersonas(personas);
+            }
+
+            usuario.UserView userView = new usuario().new UserView(tu, registro, indiceF, socialGraph, levelIndex, 12);
+
+            boolean submenu = true;
+            while (submenu) {
+                consola.mostrarMenuBusqueda();
+                System.out.print("Opción: ");
+                String opcion = escaner.nextLine();
+                List<modelos.engine.Persona> resultados = new ArrayList<>();
+
+                switch (opcion) {
+                    case "1":
+                        System.out.print("Nombre exacto: ");
+                        String nombre = escaner.nextLine();
+                        if (!nombre.isBlank()) {
+                            modelos.engine.Persona p = registro.buscarPorNombre(nombre.trim());
+                            if (p != null) resultados.add(p);
+                        }
+                        break;
+                    case "2":
+                        System.out.print("Arcano: ");
+                        String arcano = escaner.nextLine().trim();
+                        for (modelos.engine.Persona p : registro.toList()) {
+                            if (p.arcano != null && p.arcano.equalsIgnoreCase(arcano)) resultados.add(p);
+                        }
+                        break;
+                    case "3":
+                        System.out.print("Nivel mayor a: ");
+                        try {
+                            int nivel = Integer.parseInt(escaner.nextLine().trim());
+                            for (modelos.engine.Persona p : registro.toList()) {
+                                if (p.nivel > nivel) resultados.add(p);
+                            }
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Nivel inválido.");
+                        }
+                        break;
+                    case "4":
+                        System.out.print("Nivel menor a: ");
+                        try {
+                            int nivel = Integer.parseInt(escaner.nextLine().trim());
+                            for (modelos.engine.Persona p : registro.toList()) {
+                                if (p.nivel < nivel) resultados.add(p);
+                            }
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Nivel inválido.");
+                        }
+                        break;
+                    case "5":
+                        System.out.print("Nivel mínimo: ");
+                        String minText = escaner.nextLine().trim();
+                        System.out.print("Nivel máximo: ");
+                        String maxText = escaner.nextLine().trim();
+                        try {
+                            int min = Integer.parseInt(minText);
+                            int max = Integer.parseInt(maxText);
+                            for (modelos.engine.Persona p : registro.toList()) {
+                                if (p.nivel >= min && p.nivel <= max) resultados.add(p);
+                            }
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Nivel inválido.");
+                        }
+                        break;
+                    case "6":
+                        submenu = false;
+                        continue;
+                    default:
+                        System.out.println("Opción no válida.");
+                        continue;
+                }
+
+                if (resultados.isEmpty()) {
+                    System.out.println("No se encontraron personas con los filtros seleccionados.");
+                    continue;
+                }
+
+                System.out.println("\nResultados:");
+                for (int i = 0; i < resultados.size(); i++) {
+                    modelos.engine.Persona p = resultados.get(i);
+                    String etiqueta = isTeamMember(p.nombre, userView) ? "[EQUIPO]" : (tu.hasOwned(p.nombre) ? "[REG]" : "");
+                    System.out.println((i + 1) + ". " + p.nombre + " " + etiqueta + " - " + p.arcano + " Lv " + p.nivel);
+                }
+
+                System.out.print("Selecciona el número para ver detalles (enter para regresar): ");
+                String seleccion = escaner.nextLine().trim();
+                if (seleccion.isBlank()) continue;
+                try {
+                    int indice = Integer.parseInt(seleccion) - 1;
+                    if (indice < 0 || indice >= resultados.size()) {
+                        System.out.println("Selección inválida.");
+                        continue;
+                    }
+                    mostrarDetallesPersona(resultados.get(indice), userView);
+                } catch (NumberFormatException ex) {
+                    System.out.println("Selección inválida.");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al buscar persona: " + e.getMessage());
+        }
+    }
+
+    private List<List<String>> obtenerRecetasEspeciales(modelos.engine.Persona persona) {
+        List<List<String>> recetas = new ArrayList<>();
+        if (persona == null || persona.fusionEspecial == null) return recetas;
+        for (modelos.engine.specialEntry entry : persona.fusionEspecial) {
+            List<String> ingredients = parseIngredientNames(entry.de);
+            if (!ingredients.isEmpty()) recetas.add(ingredients);
+        }
+        return recetas;
+    }
+
+    private String buildSpecialFusionDescription(modelos.engine.Persona persona, usuario.UserView userView) {
+        List<List<String>> recetas = obtenerRecetasEspeciales(persona);
+        if (recetas.isEmpty()) return "Sin datos de fusión especial";
+        List<String> lines = new ArrayList<>();
+        for (List<String> receta : recetas) {
+            List<String> decorated = new ArrayList<>();
+            for (String ingredient : receta) {
+                if (isTeamMember(ingredient, userView)) {
+                    decorated.add(ingredient + " (EN EQUIPO)");
+                } else if (userView.usuario.hasOwned(ingredient)) {
+                    decorated.add(ingredient + " (REGISTRADA)");
+                } else {
+                    decorated.add(ingredient);
+                }
+            }
+            lines.add(String.join(", ", decorated));
+        }
+        return String.join(" | ", lines);
+    }
+
+    private void realizarFusionEspecial(modelos.engine.Persona objetivo, usuario.UserView userView, usuario.managerUsuario mU) throws Exception {
+        if (objetivo == null) return;
+        if (userView.isOnTeam(objetivo.nombre, mU)) {
+            System.out.println("Este persona ya está en tu equipo.");
+            return;
+        }
+        List<List<String>> recetas = obtenerRecetasEspeciales(objetivo);
+        if (recetas.isEmpty()) {
+            System.out.println("No existe una receta especial válida para esta persona.");
+            return;
+        }
+        List<String> ingredientes = recetas.get(0);
+
+        List<String> faltantes = new ArrayList<>();
+        List<String> aLiberar = new ArrayList<>();
+        for (String ing : ingredientes) {
+            if (isTeamMember(ing, userView)) {
+                aLiberar.add(ing);
+            } else if (!userView.usuario.hasOwned(ing)) {
+                faltantes.add(ing);
+            }
+        }
+
+        if (!faltantes.isEmpty()) {
+            System.out.println("No puedes realizar la fusión porque te faltan las siguientes personas:");
+            for (String faltante : faltantes) {
+                System.out.println(" - " + faltante);
+            }
+            return;
+        }
+
+        for (String nombre : aLiberar) {
+            userView.equipo.liberarPersona(nombre);
+            userView.usuario.removeTeamMember(nombre);
+        }
+
+        if (!userView.usuario.hasOwned(objetivo.nombre)) {
+            userView.usuario.registerOwned(objetivo.nombre);
+        }
+
+        if (!userView.equipo.tieneEspacio()) {
+            System.out.println("No hay espacio disponible en el equipo después de liberar los ingredientes.");
+            return;
+        }
+
+        boolean added = userView.equipo.agregarPersona(objetivo);
+        if (added) {
+            userView.usuario.addTeamMember(objetivo.nombre);
+        }
+        mU.saveUser(userView.usuario);
+        System.out.println("Fusión especial realizada con éxito. " + objetivo.nombre + " ha sido agregado al equipo.");
+    }
+
     public void verFusionesEspeciales() {
-        // Implementar la lógica para ver y realizar las fusiones especiales
+        try {
+            usuario.managerUsuario mU = usuario.new managerUsuario();
+            usuario.User tu = mU.getUsuarioActivo();
+            if (tu == null) {
+                System.out.println("No hay usuario activo. Por favor, inicia sesión o crea un usuario.");
+                return;
+            }
+
+            List<modelos.engine.Persona> personas = cargarPersonas();
+            modelos.engine.Registro registro = new modelos.engine.Registro();
+            registro.buildFrom(personas);
+            modelos.engine.indiceFusiones indiceF = new modelos.engine.indiceFusiones();
+            modelos.engine.grafoSocialLinks socialGraph = new modelos.engine.grafoSocialLinks();
+            modelos.engine.indicePorNivel levelIndex = new modelos.engine.indicePorNivel();
+            indiceF.construirDe(personas);
+            levelIndex.buildFrom(personas);
+            Path socialLinksPath = Paths.get("Data/socialLinks.json");
+            if (Files.exists(socialLinksPath)) {
+                modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+            } else {
+                socialGraph.construirDesdePersonas(personas);
+            }
+
+            usuario.UserView userView = new usuario().new UserView(tu, registro, indiceF, socialGraph, levelIndex, 12);
+            List<modelos.engine.Persona> especiales = new ArrayList<>();
+            for (modelos.engine.Persona p : registro.toList()) {
+                if (p.fusionEspecial != null && !p.fusionEspecial.isEmpty()) {
+                    especiales.add(p);
+                }
+            }
+
+            if (especiales.isEmpty()) {
+                System.out.println("No hay fusiones especiales disponibles en el registro.");
+                return;
+            }
+
+            boolean submenu = true;
+            while (submenu) {
+                consola.mostrarMenuFusionesEspeciales();
+                for (int i = 0; i < especiales.size(); i++) {
+                    modelos.engine.Persona p = especiales.get(i);
+                    String descripcion = buildSpecialFusionDescription(p, userView);
+                    System.out.println((i + 1) + ". " + p.nombre + " [" + p.arcano + " Lv " + p.nivel + "] -> " + descripcion);
+                }
+                System.out.println("0. Volver");
+                System.out.print("Selecciona la fusión especial a realizar: ");
+                String opcion = escaner.nextLine().trim();
+                if (opcion.equals("0")) {
+                    submenu = false;
+                    continue;
+                }
+                int seleccion;
+                try {
+                    seleccion = Integer.parseInt(opcion);
+                } catch (NumberFormatException ex) {
+                    System.out.println("Opción inválida.");
+                    continue;
+                }
+
+                if (seleccion < 1 || seleccion > especiales.size()) {
+                    System.out.println("Selección inválida.");
+                    continue;
+                }
+
+                modelos.engine.Persona elegido = especiales.get(seleccion - 1);
+                System.out.println("\nHas seleccionado la fusión especial de " + elegido.nombre + ".");
+                System.out.println("Receta: " + buildSpecialFusionDescription(elegido, userView));
+                System.out.print("¿Deseas realizarla? (s/n): ");
+                String confirmar = escaner.nextLine().trim().toLowerCase();
+                if (confirmar.equals("s")) {
+                    realizarFusionEspecial(elegido, userView, mU);
+                } else {
+                    System.out.println("Fusión especial cancelada.");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al mostrar fusiones especiales: " + e.getMessage());
+        }
     }
     public void cambiarUsuario() {
         // Implementar la lógica para cambiar de usuario

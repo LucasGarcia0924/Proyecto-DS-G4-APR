@@ -81,4 +81,24 @@ public class consola {
         System.out.println("║          4. Volver al menú principal                ║");
         System.out.println("╚═════════════════════════════════════════════════════╝");
     }
+
+    public synchronized void mostrarMenuBusqueda() {
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║                 MENÚ DE BÚSQUEDA                     ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║          1. Buscar por nombre exacto                 ║");
+        System.out.println("║          2. Buscar por arcano                        ║");
+        System.out.println("║          3. Buscar nivel mayor a                     ║");
+        System.out.println("║          4. Buscar nivel menor a                     ║");
+        System.out.println("║          5. Buscar nivel en rango                    ║");
+        System.out.println("║          6. Volver al menú principal                 ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
+    }
+
+    public synchronized void mostrarMenuFusionesEspeciales() {
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║             MENÚ DE FUSIONES ESPECIALES              ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
+    }
 }
