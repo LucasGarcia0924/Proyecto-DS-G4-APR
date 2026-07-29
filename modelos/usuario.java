@@ -186,15 +186,6 @@ public class usuario {
 
         public void setUsuarioActivo(User usuarioActivo) {usuario.this.usuarioActivo = usuarioActivo; }
 
-        public void cargarEquipo() {
-            // Lógica para cargar el equipo del usuario
-        }
-        public void cargarRegistro() {
-            // Lógica para cargar el registro del usuario
-        }
-        public void cargarSL() {
-            // Lógica para cargar los SL del usuario
-        }
     }
 
     public class UserView {

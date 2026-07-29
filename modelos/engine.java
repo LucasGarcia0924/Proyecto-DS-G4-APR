@@ -3,7 +3,6 @@ package modelos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,7 +133,7 @@ public class engine {
     }
 
     /* ---------------------------
-    indicePorNivel: TreeMap<Integer, List<Persona>>
+    indicePorNivel: Permite consultar personas desde ciertos rangos
     --------------------------- */
     public static class indicePorNivel {
         private final TreeMap<Integer, List<Persona>> indice = new TreeMap<>();
