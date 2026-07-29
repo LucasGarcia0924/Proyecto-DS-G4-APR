@@ -113,7 +113,7 @@ A través de una lista enlazada y de las Personas ya instanciadas, al inicio del
 ```
 
 ### Social Link
-![Logo4](https://images.pushsquare.com/c68cb11bec3de/persona-3-reload-social-links-all-social-links-and-how-to-unlock-them-15.900x.jpg)
+![Logo4](https://preview.redd.it/1-year-of-social-links-in-p3r-visualized-v0-0lb5q6zz54pc1.png?width=1400&format=png&auto=webp&s=5ed04a92a4d2a96b094b8dab8495e8c09e154ba2)
 
 Con la ayuda de un grafo, cada NPC (non-playable character) se logra instanciar al inicio del programa a partir de la base de datos, contando con sus atributos específicos, y las dependencias y relaciones con otros.
 ```java
