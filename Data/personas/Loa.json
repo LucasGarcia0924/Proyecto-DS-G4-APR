@@ -1,0 +1,16 @@
+{
+  "nombre": "Loa",
+  "arcano": "Death",
+  "nivel": 33,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 21,
+    "magia": 26,
+    "resistencia": 24,
+    "agilidad": 19,
+    "suerte": 18
+  }
+}

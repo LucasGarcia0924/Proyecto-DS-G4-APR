@@ -1,0 +1,16 @@
+{
+  "nombre": "Thanatos",
+  "arcano": "Death",
+  "nivel": 78,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 52,
+    "magia": 66,
+    "resistencia": 53,
+    "agilidad": 45,
+    "suerte": 40
+  }
+}

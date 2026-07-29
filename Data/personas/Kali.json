@@ -1,0 +1,16 @@
+{
+  "nombre": "Kali",
+  "arcano": "Strength",
+  "nivel": 63,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 53,
+    "magia": 30,
+    "resistencia": 34,
+    "agilidad": 48,
+    "suerte": 34
+  }
+}

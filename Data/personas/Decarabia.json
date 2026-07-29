@@ -1,0 +1,16 @@
+{
+  "nombre": "Decarabia",
+  "arcano": "Fool",
+  "nivel": 54,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 35,
+    "magia": 35,
+    "resistencia": 35,
+    "agilidad": 35,
+    "suerte": 35
+  }
+}

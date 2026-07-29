@@ -1,0 +1,16 @@
+{
+  "nombre": "Incubus",
+  "arcano": "Devil",
+  "nivel": 37,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 22,
+    "magia": 30,
+    "resistencia": 20,
+    "agilidad": 21,
+    "suerte": 28
+  }
+}

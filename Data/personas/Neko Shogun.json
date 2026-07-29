@@ -1,0 +1,16 @@
+{
+  "nombre": "Neko Shogun",
+  "arcano": "Star",
+  "nivel": 17,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 15,
+    "magia": 12,
+    "resistencia": 10,
+    "agilidad": 14,
+    "suerte": 8
+  }
+}

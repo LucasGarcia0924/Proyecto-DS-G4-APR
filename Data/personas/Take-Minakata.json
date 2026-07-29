@@ -1,0 +1,16 @@
+{
+  "nombre": "Take-Minakata",
+  "arcano": "Hanged",
+  "nivel": 20,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 14,
+    "magia": 14,
+    "resistencia": 21,
+    "agilidad": 10,
+    "suerte": 10
+  }
+}

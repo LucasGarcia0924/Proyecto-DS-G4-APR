@@ -1,0 +1,16 @@
+{
+  "nombre": "Zouchouten",
+  "arcano": "Chariot",
+  "nivel": 14,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 14,
+    "magia": 7,
+    "resistencia": 13,
+    "agilidad": 6,
+    "suerte": 10
+  }
+}

@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
-  "arcano": "Lovers",
-  "nivel": 67,
+  "nombre": "Koumokuten",
+  "arcano": "Chariot",
+  "nivel": 52,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
+    "fuerza": 40,
+    "magia": 35,
     "resistencia": 40,
-    "agilidad": 42,
-    "suerte": 45
+    "agilidad": 25,
+    "suerte": 29
   }
 }

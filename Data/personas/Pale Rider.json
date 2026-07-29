@@ -1,0 +1,16 @@
+{
+  "nombre": "Pale Rider",
+  "arcano": "Death",
+  "nivel": 23,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 20,
+    "magia": 18,
+    "resistencia": 13,
+    "agilidad": 17,
+    "suerte": 11
+  }
+}

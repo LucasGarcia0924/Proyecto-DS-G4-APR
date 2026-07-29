@@ -1,0 +1,16 @@
+{
+  "nombre": "Zorro",
+  "arcano": "Magician",
+  "nivel": 22,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 13,
+    "magia": 17,
+    "resistencia": 13,
+    "agilidad": 15,
+    "suerte": 15
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Dionysus",
+  "arcano": "Moon",
+  "nivel": 49,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 30,
+    "magia": 38,
+    "resistencia": 26,
+    "agilidad": 30,
+    "suerte": 33
+  }
+}

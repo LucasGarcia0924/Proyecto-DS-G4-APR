@@ -1,0 +1,16 @@
+{
+  "nombre": "Legion",
+  "arcano": "Fool",
+  "nivel": 26,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 16,
+    "magia": 14,
+    "resistencia": 26,
+    "agilidad": 9,
+    "suerte": 20
+  }
+}

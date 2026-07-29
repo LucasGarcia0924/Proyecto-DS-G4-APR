@@ -1,0 +1,16 @@
+{
+  "nombre": "Matador",
+  "arcano": "Strength",
+  "nivel": 22,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 17,
+    "magia": 14,
+    "resistencia": 12,
+    "agilidad": 23,
+    "suerte": 10
+  }
+}

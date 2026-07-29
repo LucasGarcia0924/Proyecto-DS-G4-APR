@@ -1,0 +1,16 @@
+{
+  "nombre": "Mara",
+  "arcano": "Tower",
+  "nivel": 75,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 60,
+    "magia": 50,
+    "resistencia": 50,
+    "agilidad": 48,
+    "suerte": 39
+  }
+}

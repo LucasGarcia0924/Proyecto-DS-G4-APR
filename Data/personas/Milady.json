@@ -1,0 +1,16 @@
+{
+  "nombre": "Milady",
+  "arcano": "Empress",
+  "nivel": 36,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 27,
+    "magia": 24,
+    "resistencia": 22,
+    "agilidad": 22,
+    "suerte": 20
+  }
+}

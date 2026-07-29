@@ -1,0 +1,16 @@
+{
+  "nombre": "Nigi Mitama",
+  "arcano": "Temperance",
+  "nivel": 12,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 6,
+    "magia": 10,
+    "resistencia": 9,
+    "agilidad": 10,
+    "suerte": 8
+  }
+}

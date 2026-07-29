@@ -1,16 +1,16 @@
 {
-  "nombre": "Omoikane",
+  "nombre": "Shiisaa",
   "arcano": "Hierophant",
-  "nivel": 7,
+  "nivel": 23,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 4,
-    "magia": 8,
-    "resistencia": 6,
-    "agilidad": 4,
-    "suerte": 6
+    "fuerza": 15,
+    "magia": 15,
+    "resistencia": 19,
+    "agilidad": 16,
+    "suerte": 11
   }
 }

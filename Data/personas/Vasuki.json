@@ -1,0 +1,16 @@
+{
+  "nombre": "Vasuki",
+  "arcano": "Hanged",
+  "nivel": 38,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 27,
+    "magia": 27,
+    "resistencia": 35,
+    "agilidad": 15,
+    "suerte": 17
+  }
+}

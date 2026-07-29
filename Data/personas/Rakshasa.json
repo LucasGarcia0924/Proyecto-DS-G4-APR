@@ -1,16 +1,16 @@
 {
-  "nombre": "Omoikane",
-  "arcano": "Hierophant",
-  "nivel": 7,
+  "nombre": "Rakshasa",
+  "arcano": "Strength",
+  "nivel": 15,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 4,
+    "fuerza": 17,
     "magia": 8,
-    "resistencia": 6,
-    "agilidad": 4,
+    "resistencia": 13,
+    "agilidad": 11,
     "suerte": 6
   }
 }

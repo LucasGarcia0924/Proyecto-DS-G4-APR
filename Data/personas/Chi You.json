@@ -1,0 +1,16 @@
+{
+  "nombre": "Chi You",
+  "arcano": "Tower",
+  "nivel": 86,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 69,
+    "magia": 50,
+    "resistencia": 63,
+    "agilidad": 53,
+    "suerte": 60
+  }
+}

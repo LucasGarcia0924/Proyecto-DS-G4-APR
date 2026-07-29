@@ -1,0 +1,16 @@
+{
+  "nombre": "Hell Biker",
+  "arcano": "Hanged",
+  "nivel": 65,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 48,
+    "magia": 51,
+    "resistencia": 50,
+    "agilidad": 40,
+    "suerte": 22
+  }
+}

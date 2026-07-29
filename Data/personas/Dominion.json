@@ -1,0 +1,16 @@
+{
+  "nombre": "Dominion",
+  "arcano": "Justice",
+  "nivel": 42,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 25,
+    "magia": 32,
+    "resistencia": 24,
+    "agilidad": 26,
+    "suerte": 26
+  }
+}

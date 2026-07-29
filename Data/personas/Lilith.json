@@ -1,0 +1,16 @@
+{
+  "nombre": "Lilith",
+  "arcano": "Devil",
+  "nivel": 65,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 35,
+    "magia": 56,
+    "resistencia": 38,
+    "agilidad": 44,
+    "suerte": 35
+  }
+}

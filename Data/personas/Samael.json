@@ -1,0 +1,16 @@
+{
+  "nombre": "Samael",
+  "arcano": "Death",
+  "nivel": 41,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 31,
+    "resistencia": 27,
+    "agilidad": 21,
+    "suerte": 25
+  }
+}

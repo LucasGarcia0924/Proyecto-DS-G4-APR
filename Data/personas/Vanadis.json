@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
-  "arcano": "Lovers",
-  "nivel": 67,
+  "nombre": "Vanadis",
+  "arcano": "Star",
+  "nivel": 58,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
-    "resistencia": 40,
+    "fuerza": 43,
+    "magia": 38,
+    "resistencia": 30,
     "agilidad": 42,
-    "suerte": 45
+    "suerte": 33
   }
 }

@@ -1,0 +1,16 @@
+{
+  "nombre": "Hua Po",
+  "arcano": "Magician",
+  "nivel": 19,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 8,
+    "magia": 21,
+    "resistencia": 13,
+    "agilidad": 17,
+    "suerte": 11
+  }
+}

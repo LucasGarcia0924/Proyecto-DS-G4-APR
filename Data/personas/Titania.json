@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
+  "nombre": "Titania",
   "arcano": "Lovers",
-  "nivel": 67,
+  "nivel": 49,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
-    "resistencia": 40,
-    "agilidad": 42,
-    "suerte": 45
+    "fuerza": 19,
+    "magia": 45,
+    "resistencia": 23,
+    "agilidad": 34,
+    "suerte": 36
   }
 }

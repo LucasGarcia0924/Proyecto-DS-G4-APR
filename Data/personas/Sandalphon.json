@@ -1,0 +1,16 @@
+{
+  "nombre": "Sandalphon",
+  "arcano": "Moon",
+  "nivel": 80,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 53,
+    "magia": 53,
+    "resistencia": 67,
+    "agilidad": 46,
+    "suerte": 49
+  }
+}

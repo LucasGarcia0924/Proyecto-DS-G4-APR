@@ -1,0 +1,16 @@
+{
+  "nombre": "Masakado",
+  "arcano": "Tower",
+  "nivel": 79,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 67,
+    "magia": 46,
+    "resistencia": 55,
+    "agilidad": 43,
+    "suerte": 48
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "King Frost",
+  "arcano": "Emperor",
+  "nivel": 34,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 18,
+    "magia": 31,
+    "resistencia": 26,
+    "agilidad": 14,
+    "suerte": 20
+  }
+}

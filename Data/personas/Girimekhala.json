@@ -1,0 +1,16 @@
+{
+  "nombre": "Girimekhala",
+  "arcano": "Moon",
+  "nivel": 39,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 36,
+    "magia": 26,
+    "resistencia": 28,
+    "agilidad": 20,
+    "suerte": 20
+  }
+}

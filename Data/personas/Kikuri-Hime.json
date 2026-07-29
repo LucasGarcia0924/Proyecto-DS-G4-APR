@@ -1,0 +1,16 @@
+{
+  "nombre": "Kikuri-Hime",
+  "arcano": "Priestess",
+  "nivel": 61,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 29,
+    "magia": 50,
+    "resistencia": 34,
+    "agilidad": 41,
+    "suerte": 39
+  }
+}

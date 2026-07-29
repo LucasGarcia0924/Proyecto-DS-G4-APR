@@ -1,0 +1,16 @@
+{
+  "nombre": "Jatayu",
+  "arcano": "Sun",
+  "nivel": 55,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 33,
+    "magia": 40,
+    "resistencia": 30,
+    "agilidad": 50,
+    "suerte": 28
+  }
+}

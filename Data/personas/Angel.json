@@ -1,16 +1,16 @@
 {
-  "nombre": "Omoikane",
-  "arcano": "Hierophant",
-  "nivel": 7,
+  "nombre": "Angel",
+  "arcano": "Justice",
+  "nivel": 4,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
     "fuerza": 4,
-    "magia": 8,
-    "resistencia": 6,
+    "magia": 5,
+    "resistencia": 3,
     "agilidad": 4,
-    "suerte": 6
+    "suerte": 3
   }
 }

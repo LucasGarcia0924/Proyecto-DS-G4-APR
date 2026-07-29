@@ -1,0 +1,16 @@
+{
+  "nombre": "Michael",
+  "arcano": "Judgement",
+  "nivel": 70,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 56,
+    "magia": 48,
+    "resistencia": 46,
+    "agilidad": 37,
+    "suerte": 42
+  }
+}

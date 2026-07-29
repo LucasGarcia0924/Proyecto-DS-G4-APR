@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
+  "nombre": "Saki Mitama",
   "arcano": "Lovers",
-  "nivel": 67,
+  "nivel": 36,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
-    "resistencia": 40,
-    "agilidad": 42,
-    "suerte": 45
+    "fuerza": 16,
+    "magia": 30,
+    "resistencia": 20,
+    "agilidad": 22,
+    "suerte": 28
   }
 }

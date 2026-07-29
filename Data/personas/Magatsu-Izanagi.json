@@ -1,0 +1,16 @@
+{
+  "nombre": "Magatsu-Izanagi",
+  "arcano": "Tower",
+  "nivel": 50,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 42,
+    "magia": 39,
+    "resistencia": 36,
+    "agilidad": 28,
+    "suerte": 17
+  }
+}

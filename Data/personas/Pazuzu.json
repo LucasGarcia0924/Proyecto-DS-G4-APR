@@ -1,0 +1,16 @@
+{
+  "nombre": "Pazuzu",
+  "arcano": "Devil",
+  "nivel": 56,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 34,
+    "magia": 42,
+    "resistencia": 35,
+    "agilidad": 32,
+    "suerte": 34
+  }
+}

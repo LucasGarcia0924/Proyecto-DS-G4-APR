@@ -1,0 +1,16 @@
+{
+  "nombre": "Chernobog",
+  "arcano": "Moon",
+  "nivel": 56,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 48,
+    "magia": 41,
+    "resistencia": 31,
+    "agilidad": 35,
+    "suerte": 32
+  }
+}

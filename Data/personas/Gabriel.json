@@ -1,0 +1,16 @@
+{
+  "nombre": "Gabriel",
+  "arcano": "Empress",
+  "nivel": 62,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 40,
+    "magia": 52,
+    "resistencia": 35,
+    "agilidad": 41,
+    "suerte": 37
+  }
+}

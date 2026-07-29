@@ -1,0 +1,16 @@
+{
+  "nombre": "Lucifer",
+  "arcano": "Judgement",
+  "nivel": 89,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 70,
+    "magia": 70,
+    "resistencia": 61,
+    "agilidad": 51,
+    "suerte": 55
+  }
+}

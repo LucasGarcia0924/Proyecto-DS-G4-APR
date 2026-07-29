@@ -1,0 +1,16 @@
+{
+  "nombre": "Hecatoncheires",
+  "arcano": "Hanged",
+  "nivel": 47,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 37,
+    "magia": 24,
+    "resistencia": 48,
+    "agilidad": 20,
+    "suerte": 25
+  }
+}

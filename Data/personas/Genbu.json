@@ -1,0 +1,16 @@
+{
+  "nombre": "Genbu",
+  "arcano": "Temperance",
+  "nivel": 30,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 18,
+    "magia": 17,
+    "resistencia": 30,
+    "agilidad": 12,
+    "suerte": 20
+  }
+}

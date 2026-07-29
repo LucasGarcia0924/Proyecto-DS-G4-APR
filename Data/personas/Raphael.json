@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
+  "nombre": "Raphael",
   "arcano": "Lovers",
-  "nivel": 67,
+  "nivel": 60,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
-    "resistencia": 40,
-    "agilidad": 42,
-    "suerte": 45
+    "fuerza": 46,
+    "magia": 42,
+    "resistencia": 37,
+    "agilidad": 31,
+    "suerte": 40
   }
 }

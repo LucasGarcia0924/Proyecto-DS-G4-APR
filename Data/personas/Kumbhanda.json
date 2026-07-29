@@ -1,0 +1,16 @@
+{
+  "nombre": "Kumbhanda",
+  "arcano": "Hermit",
+  "nivel": 61,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 48,
+    "magia": 44,
+    "resistencia": 39,
+    "agilidad": 45,
+    "suerte": 20
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Okuninushi",
+  "arcano": "Temperance",
+  "nivel": 44,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 35,
+    "magia": 32,
+    "resistencia": 29,
+    "agilidad": 24,
+    "suerte": 19
+  }
+}

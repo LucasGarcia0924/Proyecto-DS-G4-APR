@@ -1,0 +1,16 @@
+{
+  "nombre": "Oni",
+  "arcano": "Chariot",
+  "nivel": 31,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 30,
+    "magia": 13,
+    "resistencia": 26,
+    "agilidad": 21,
+    "suerte": 19
+  }
+}

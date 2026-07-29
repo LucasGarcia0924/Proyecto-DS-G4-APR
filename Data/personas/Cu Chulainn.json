@@ -1,0 +1,16 @@
+{
+  "nombre": "Cu Chulainn",
+  "arcano": "Tower",
+  "nivel": 40,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 33,
+    "magia": 29,
+    "resistencia": 24,
+    "agilidad": 26,
+    "suerte": 21
+  }
+}

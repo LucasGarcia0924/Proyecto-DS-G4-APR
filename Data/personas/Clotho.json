@@ -1,0 +1,16 @@
+{
+  "nombre": "Clotho",
+  "arcano": "Fortune",
+  "nivel": 37,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 20,
+    "magia": 29,
+    "resistencia": 22,
+    "agilidad": 24,
+    "suerte": 26
+  }
+}

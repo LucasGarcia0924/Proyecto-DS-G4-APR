@@ -1,0 +1,16 @@
+{
+  "nombre": "Satan",
+  "arcano": "Judgement",
+  "nivel": 82,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 55,
+    "magia": 68,
+    "resistencia": 52,
+    "agilidad": 43,
+    "suerte": 53
+  }
+}

@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
-  "arcano": "Lovers",
-  "nivel": 67,
+  "nombre": "Loki",
+  "arcano": "Fool",
+  "nivel": 69,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
-    "resistencia": 40,
+    "fuerza": 48,
+    "magia": 60,
+    "resistencia": 45,
     "agilidad": 42,
-    "suerte": 45
+    "suerte": 28
   }
 }

@@ -1,0 +1,16 @@
+{
+  "nombre": "Thunderbird",
+  "arcano": "Sun",
+  "nivel": 35,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 18,
+    "magia": 28,
+    "resistencia": 18,
+    "agilidad": 32,
+    "suerte": 21
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Mokoi",
+  "arcano": "Devil",
+  "nivel": 18,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 7,
+    "magia": 7,
+    "resistencia": 12,
+    "agilidad": 16,
+    "suerte": 22
+  }
+}

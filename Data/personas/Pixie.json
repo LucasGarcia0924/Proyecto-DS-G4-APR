@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
+  "nombre": "Pixie",
   "arcano": "Lovers",
-  "nivel": 67,
+  "nivel": 2,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
-    "resistencia": 40,
-    "agilidad": 42,
-    "suerte": 45
+    "fuerza": 2,
+    "magia": 2,
+    "resistencia": 2,
+    "agilidad": 4,
+    "suerte": 3
   }
 }

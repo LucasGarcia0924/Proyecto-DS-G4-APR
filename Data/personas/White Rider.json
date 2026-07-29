@@ -1,0 +1,16 @@
+{
+  "nombre": "White Rider",
+  "arcano": "Strength",
+  "nivel": 46,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 36,
+    "magia": 27,
+    "resistencia": 30,
+    "agilidad": 27,
+    "suerte": 25
+  }
+}

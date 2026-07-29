@@ -1,0 +1,16 @@
+{
+  "nombre": "Garuda",
+  "arcano": "Star",
+  "nivel": 64,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 45,
+    "magia": 41,
+    "resistencia": 35,
+    "agilidad": 51,
+    "suerte": 36
+  }
+}

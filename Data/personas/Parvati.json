@@ -1,0 +1,16 @@
+{
+  "nombre": "Parvati",
+  "arcano": "Priestess",
+  "nivel": 48,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 40,
+    "resistencia": 26,
+    "agilidad": 31,
+    "suerte": 31
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Mot",
+  "arcano": "Death",
+  "nivel": 58,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 37,
+    "magia": 42,
+    "resistencia": 44,
+    "agilidad": 29,
+    "suerte": 33
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Trumpeter",
+  "arcano": "Judgement",
+  "nivel": 59,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 44,
+    "magia": 44,
+    "resistencia": 37,
+    "agilidad": 35,
+    "suerte": 33
+  }
+}

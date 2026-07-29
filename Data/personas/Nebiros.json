@@ -1,0 +1,16 @@
+{
+  "nombre": "Nebiros",
+  "arcano": "Hermit",
+  "nivel": 52,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 28,
+    "magia": 42,
+    "resistencia": 31,
+    "agilidad": 31,
+    "suerte": 37
+  }
+}

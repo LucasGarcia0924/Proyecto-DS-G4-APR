@@ -1,0 +1,16 @@
+{
+  "nombre": "Slime",
+  "arcano": "Fool",
+  "nivel": 12,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 10,
+    "magia": 6,
+    "resistencia": 14,
+    "agilidad": 6,
+    "suerte": 7
+  }
+}

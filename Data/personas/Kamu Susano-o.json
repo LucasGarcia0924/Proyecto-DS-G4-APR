@@ -1,0 +1,16 @@
+{
+  "nombre": "Kamu Susano-o",
+  "arcano": "Emperor",
+  "nivel": 47,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 40,
+    "magia": 25,
+    "resistencia": 30,
+    "agilidad": 30,
+    "suerte": 23
+  }
+}

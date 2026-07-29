@@ -1,16 +1,16 @@
 {
-  "nombre": "Cybele",
-  "arcano": "Lovers",
-  "nivel": 67,
+  "nombre": "Norn",
+  "arcano": "Fortune",
+  "nivel": 65,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 39,
-    "magia": 54,
+    "fuerza": 37,
+    "magia": 60,
     "resistencia": 40,
-    "agilidad": 42,
-    "suerte": 45
+    "agilidad": 37,
+    "suerte": 40
   }
 }

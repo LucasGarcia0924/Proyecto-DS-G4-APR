@@ -1,0 +1,16 @@
+{
+  "nombre": "Unicorn",
+  "arcano": "Priestess",
+  "nivel": 11,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 5,
+    "magia": 10,
+    "resistencia": 12,
+    "agilidad": 8,
+    "suerte": 7
+  }
+}

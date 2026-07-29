@@ -1,0 +1,16 @@
+{
+  "nombre": "Skadi",
+  "arcano": "Empress",
+  "nivel": 68,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 52,
+    "magia": 58,
+    "resistencia": 33,
+    "agilidad": 40,
+    "suerte": 40
+  }
+}

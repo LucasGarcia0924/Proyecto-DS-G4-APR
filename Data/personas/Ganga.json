@@ -1,0 +1,16 @@
+{
+  "nombre": "Ganga",
+  "arcano": "Priestess",
+  "nivel": 41,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 24,
+    "magia": 30,
+    "resistencia": 26,
+    "agilidad": 22,
+    "suerte": 28
+  }
+}

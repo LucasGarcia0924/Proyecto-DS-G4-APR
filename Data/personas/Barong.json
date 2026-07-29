@@ -1,0 +1,16 @@
+{
+  "nombre": "Barong",
+  "arcano": "Emperor",
+  "nivel": 63,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 43,
+    "magia": 55,
+    "resistencia": 41,
+    "agilidad": 31,
+    "suerte": 32
+  }
+}

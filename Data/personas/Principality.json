@@ -1,0 +1,16 @@
+{
+  "nombre": "Principality",
+  "arcano": "Justice",
+  "nivel": 16,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 11,
+    "magia": 13,
+    "resistencia": 7,
+    "agilidad": 12,
+    "suerte": 12
+  }
+}

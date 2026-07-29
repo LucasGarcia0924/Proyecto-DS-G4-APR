@@ -1,0 +1,16 @@
+{
+  "nombre": "Succubus",
+  "arcano": "Devil",
+  "nivel": 47,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 41,
+    "resistencia": 28,
+    "agilidad": 33,
+    "suerte": 27
+  }
+}

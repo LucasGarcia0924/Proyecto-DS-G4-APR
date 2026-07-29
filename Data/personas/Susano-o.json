@@ -1,0 +1,16 @@
+{
+  "nombre": "Susano-o",
+  "arcano": "Fool",
+  "nivel": 77,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 71,
+    "magia": 35,
+    "resistencia": 43,
+    "agilidad": 49,
+    "suerte": 55
+  }
+}

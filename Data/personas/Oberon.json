@@ -1,0 +1,16 @@
+{
+  "nombre": "Oberon",
+  "arcano": "Emperor",
+  "nivel": 16,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 11,
+    "magia": 15,
+    "resistencia": 9,
+    "agilidad": 12,
+    "suerte": 8
+  }
+}

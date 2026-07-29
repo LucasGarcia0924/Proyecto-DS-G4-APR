@@ -1,0 +1,16 @@
+{
+  "nombre": "Messiah",
+  "arcano": "Judgement",
+  "nivel": 91,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 65,
+    "magia": 70,
+    "resistencia": 62,
+    "agilidad": 59,
+    "suerte": 59
+  }
+}
