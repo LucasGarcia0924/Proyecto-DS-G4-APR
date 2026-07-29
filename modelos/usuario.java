@@ -11,10 +11,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,8 +45,8 @@ public class usuario {
         public String respuestaHash; // base64
         public String salt;         // base64
         public List<String> equipo = new ArrayList<>(); // nombres
-        public Set<String> owned = new HashSet<>();   // nombres
-        public Map<String,Integer> socialLinks = new HashMap<>();
+        public Hash<String, Boolean> owned = new Hash<>();   // nombres
+        public Hash<String,Integer> socialLinks = new Hash<>();
         public int mes = 1;
         public String lastModified;
         public User() {}
@@ -133,7 +130,7 @@ public class usuario {
                 for (Path p : ds) {
                     User u = M.readValue(p.toFile(), User.class);
                     if (u.mes <= 0) u.mes = 1;
-                    if (u.socialLinks == null) u.socialLinks = new HashMap<>();
+                    if (u.socialLinks == null) u.socialLinks = new Hash<>();
                     users.put(u.nombreUsuario.toLowerCase(), u);
                 }
             }
@@ -315,7 +312,7 @@ public class usuario {
 
         public void printRegistryByArcana() {
             System.out.println("Registro por arcano:");
-            Map<String, List<Persona>> porArcano = new HashMap<>();
+            Hash<String, List<Persona>> porArcano = new Hash<>();
             for (Persona p : registro.toList()) {
                 porArcano.computeIfAbsent(p.arcano, k -> new ArrayList<>()).add(p);
             }

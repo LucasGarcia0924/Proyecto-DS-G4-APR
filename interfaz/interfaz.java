@@ -7,8 +7,6 @@ import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -110,10 +108,10 @@ public class interfaz {
         tu.preguntaHash = pregunta;
         tu.respuestaHash = respuestaHash;
         tu.equipo = new ArrayList<>(Arrays.asList("Orpheus"));
-        tu.owned = new HashSet<>();
+        tu.owned = new modelos.engine.Hash<>();
         tu.registerOwned("Orpheus");
         tu.mes = 4;
-        tu.socialLinks = new HashMap<>();
+        tu.socialLinks = new modelos.engine.Hash<>();
         ObjectMapper mapper = new ObjectMapper();
         Path socialLinksPath = Paths.get("Data/socialLinks.json");
         if (Files.exists(socialLinksPath)) {

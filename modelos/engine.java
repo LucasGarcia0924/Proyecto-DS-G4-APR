@@ -3,14 +3,13 @@ package modelos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
-import java.util.TreeMap;
 
 public class engine {
-        /* ---------------------------
+
+    /* ---------------------------
     MODELOS JSON / DOM
     --------------------------- */
     public static class Persona {
@@ -90,7 +89,7 @@ public class engine {
         }
         private Node cabeza;
         private int tamaño;
-        private final Map<String, Node> indicePorNombre = new HashMap<>(); // índice auxiliar name -> node
+        private final Hash<String, Node> indicePorNombre = new Hash<>(); // índice auxiliar name -> node
 
         public Registro() { cabeza = null; tamaño = 0; }
 
@@ -136,7 +135,7 @@ public class engine {
     indicePorNivel: Permite consultar personas desde ciertos rangos
     --------------------------- */
     public static class indicePorNivel {
-        private final TreeMap<Integer, List<Persona>> indice = new TreeMap<>();
+        private final Arbol<Integer, List<Persona>> indice = new Arbol<>();
 
         public void buildFrom(Collection<Persona> personas) {
             indice.clear();
@@ -170,8 +169,8 @@ public class engine {
     SocialGraph: NPCs y desbloqueos
     --------------------------- */
     public static class grafoSocialLinks {
-        private final Map<String, NPC> npcs = new HashMap<>();
-        private final Map<String, String> aliasToCanonical = new HashMap<>();
+        private final Hash<String, NPC> npcs = new Hash<>();
+        private final Hash<String, String> aliasToCanonical = new Hash<>();
 
         private String normalizeKey(String nombre) {
             if (nombre == null) return null;
@@ -189,7 +188,7 @@ public class engine {
             return nombre;
         }
 
-        private int getSocialLinkLevel(String nombreNPC, Map<String,Integer> socialLevels) {
+        private int getSocialLinkLevel(String nombreNPC, Hash<String,Integer> socialLevels) {
             if (nombreNPC == null || socialLevels == null) return 0;
             Integer exact = socialLevels.get(nombreNPC);
             if (exact != null) return exact;
@@ -198,7 +197,7 @@ public class engine {
                 Integer canon = socialLevels.get(canonical);
                 if (canon != null) return canon;
             }
-            for (Map.Entry<String,Integer> entry : socialLevels.entrySet()) {
+            for (java.util.Map.Entry<String,Integer> entry : socialLevels.entrySet()) {
                 if (entry.getKey() != null && entry.getKey().equalsIgnoreCase(nombreNPC)) return entry.getValue();
             }
             return 0;
@@ -316,7 +315,7 @@ public class engine {
 
         public void syncLevels(Map<String,Integer> socialLevels) {
             if (socialLevels == null) return;
-            for (Map.Entry<String,Integer> entry : socialLevels.entrySet()) {
+            for (java.util.Map.Entry<String,Integer> entry : socialLevels.entrySet()) {
                 String npcName = entry.getKey();
                 int level = entry.getValue() == null ? 0 : entry.getValue();
                 String canonical = resolveName(npcName);
@@ -340,7 +339,7 @@ public class engine {
             return null;
         }
 
-        public boolean puedeSubir(String nombreNPC, int mesActual, Map<String,Integer> socialLevels) {
+        public boolean puedeSubir(String nombreNPC, int mesActual, Hash<String,Integer> socialLevels) {
             NPC npc = getNPC(nombreNPC);
             if (npc == null) return false;
             int nivelActual = getSocialLinkLevel(nombreNPC, socialLevels);
@@ -356,7 +355,7 @@ public class engine {
             return true;
         }
 
-        public String aumentarRango(String nombreNPC, int delta, int mesActual, Map<String,Integer> socialLevels) {
+        public String aumentarRango(String nombreNPC, int delta, int mesActual, Hash<String,Integer> socialLevels) {
             NPC npc = getNPC(nombreNPC);
             if (npc == null) return null;
 
@@ -372,11 +371,11 @@ public class engine {
             return null;
         }
 
-        public boolean canIncreaseRank(String nombreNPC, int mesActual, Map<String,Integer> socialLevels) {
+        public boolean canIncreaseRank(String nombreNPC, int mesActual, Hash<String,Integer> socialLevels) {
             return puedeSubir(nombreNPC, mesActual, socialLevels);
         }
 
-        public String getIncreaseRestrictionReason(String nombreNPC, int mesActual, Map<String,Integer> socialLevels) {
+        public String getIncreaseRestrictionReason(String nombreNPC, int mesActual, Hash<String,Integer> socialLevels) {
             NPC npc = getNPC(nombreNPC);
             if (npc == null) return "Social Link no encontrado.";
             int nivelActual = getSocialLinkLevel(nombreNPC, socialLevels);
@@ -404,7 +403,7 @@ public class engine {
     FusionIndex: HashMaps en memoria
     --------------------------- */
     public static class indiceFusiones {
-        private final Map<String, String> indicePar = new HashMap<>();
+        private final Hash<String, String> indicePar = new Hash<>();
 
         private String keyNames(List<String> names) {
             List<String> s = new ArrayList<>(names);
@@ -488,6 +487,162 @@ public class engine {
             for (int i = 0; i < capacidad; i++) {
                 System.out.println(" [" + i + "] " + (miembros[i] == null ? "<vacío>" : miembros[i]));
             }
+        }
+    }
+    public class Arbol {
+
+        private Nodo raiz;
+
+        public Arbol() {
+            raiz = null;
+        }
+    
+        public class Nodo {
+
+            int dato;
+
+            Nodo izquierda;
+            Nodo derecha;
+
+            public Nodo(int dato) {
+                this.dato = dato;
+                izquierda = null;
+                derecha = null;
+            }
+
+        }
+        public void insertar(int dato) {
+        raiz = insertarRec(raiz, dato);
+    }
+
+        private Nodo insertarRec(Nodo actual, int dato) {
+
+            if (actual == null)
+                return new Nodo(dato);
+
+            if (dato < actual.dato)
+                actual.izquierda = insertarRec(actual.izquierda, dato);
+
+            else if (dato > actual.dato)
+                actual.derecha = insertarRec(actual.derecha, dato);
+
+            return actual;
+
+        }
+        public boolean buscar(int dato) {
+    return buscarRec(raiz, dato);
+}
+        private boolean buscarRec(Nodo actual, int dato) {
+
+            if (actual == null)
+                return false;
+
+            if (actual.dato == dato)
+                return true;
+
+            if (dato < actual.dato)
+                return buscarRec(actual.izquierda, dato);
+
+            return buscarRec(actual.derecha, dato);
+
+        }
+
+    }
+
+    public static class MiHash<K, V> {
+
+        public class Nodo<K, V> {
+
+        K llave;
+        V valor;
+
+        Nodo<K, V> siguiente;
+
+            public Nodo(K llave, V valor) {
+                this.llave = llave;
+                this.valor = valor;
+                this.siguiente = null;
+            }
+        }
+
+        private Nodo<K, V>[] tabla;
+        private int tamaño;
+
+        @SuppressWarnings("unchecked")
+        public MiHash(int tamaño) {
+            this.tamaño = tamaño;
+            tabla = (Nodo<K, V>[]) new Nodo[tamaño];
+    }
+
+        private int hash(K llave) {
+            return Math.abs(llave.hashCode()) % tamaño;
+        }
+    
+        public void put(K llave, V valor) {
+
+            int indice = hash(llave);
+
+            Nodo<K, V> nuevo = new Nodo<>(llave, valor);
+
+            if (tabla[indice] == null) {
+
+                tabla[indice] = nuevo;
+                return;
+
+            }
+
+            Nodo<K, V> actual = tabla[indice];
+
+            while (actual.siguiente != null) {
+                actual = actual.siguiente;
+            }
+
+            actual.siguiente = nuevo;
+        }
+
+        public V get(K llave) {
+
+            int indice = hash(llave);
+
+            Nodo<K, V> actual = tabla[indice];
+
+            while (actual != null) {
+
+                if (actual.llave.equals(llave)) {
+                    return actual.valor;
+                }
+
+                actual = actual.siguiente;
+
+            }
+
+            return null;
+
+        }
+        public boolean remove(K llave) {
+
+            int indice = hash(llave);
+
+            Nodo<K, V> actual = tabla[indice];
+            Nodo<K, V> anterior = null;
+
+            while (actual != null) {
+
+                if (actual.llave.equals(llave)) {
+
+                    if (anterior == null)
+                        tabla[indice] = actual.siguiente;
+                    else
+                        anterior.siguiente = actual.siguiente;
+
+                    return true;
+                }
+
+                anterior = actual;
+                actual = actual.siguiente;
+            }
+
+            return false;
         }
     }
 }

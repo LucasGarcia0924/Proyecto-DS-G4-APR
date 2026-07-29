@@ -4,8 +4,8 @@
   "preguntaHash" : "A",
   "respuestaHash" : "KQtVa+8ZRVpPTvm3p+eWhHSPAMXymPvqmH0VnV5gmyM=",
   "salt" : "y7evKoQQC3JI6d2hxC+GQA==",
-  "equipo" : [ "Orpheus", "Jack Frost", "Silky", "Dominion", "Lilim", "Narcissus", "Skadi", "Alice" ],
-  "owned" : [ "Jack Frost", "Silky", "Orpheus", "Cybele", "Titania" ],
+  "equipo" : [ "Silky", "Dominion", "Skadi", "Omoikane", "Alice" ],
+  "owned" : [ "Jack Frost", "Omoikane", "Silky", "Alice", "Orpheus", "Cybele", "Titania" ],
   "socialLinks" : {
     "Chihiro Fushimi" : 0,
     "Pharos" : 0,
@@ -29,13 +29,13 @@
     "Akinari Kimiki" : 0,
     "Mutatsu" : 0,
     "Presidente Tanaka" : 0,
-    "Yukari Takeba" : 0,
+    "Yukari Takeba" : 5,
     "Bebe" : 0,
     "Kenji Tomochika" : 0,
     "Koromaru" : 0,
     "Kazushi Miyamoto" : 0,
     "Mitsuru Kirijo" : 0
   },
-  "mes" : 4,
-  "lastModified" : "2026-07-29T16:30:34.781397900Z"
+  "mes" : 7,
+  "lastModified" : "2026-07-29T17:37:57.701683200Z"
 }
