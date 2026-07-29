@@ -1,11 +1,11 @@
 {
-  "nombreUsuario" : "no",
-  "contraseña" : "vJeny++Z6v8B3KRORVOBcSGRRBod9Mn9kmm3YhKYneY=",
-  "preguntaHash" : "no",
-  "respuestaHash" : "vJeny++Z6v8B3KRORVOBcSGRRBod9Mn9kmm3YhKYneY=",
-  "salt" : "i/58F13PbZaFS9/eeK+AIw==",
-  "equipo" : [ "Orpheus", "Messiah" ],
-  "owned" : [ "Orpheus", "Cybele" ],
+  "nombreUsuario" : "A",
+  "contraseña" : "KQtVa+8ZRVpPTvm3p+eWhHSPAMXymPvqmH0VnV5gmyM=",
+  "preguntaHash" : "A",
+  "respuestaHash" : "KQtVa+8ZRVpPTvm3p+eWhHSPAMXymPvqmH0VnV5gmyM=",
+  "salt" : "y7evKoQQC3JI6d2hxC+GQA==",
+  "equipo" : [ "Orpheus", "Jack Frost", "Silky", "Dominion", "Lilim", "Narcissus", "Skadi", "Alice" ],
+  "owned" : [ "Jack Frost", "Silky", "Orpheus", "Cybele", "Titania" ],
   "socialLinks" : {
     "Chihiro Fushimi" : 0,
     "Pharos" : 0,
@@ -29,13 +29,13 @@
     "Akinari Kimiki" : 0,
     "Mutatsu" : 0,
     "Presidente Tanaka" : 0,
-    "Yukari Takeba" : 1,
+    "Yukari Takeba" : 0,
     "Bebe" : 0,
     "Kenji Tomochika" : 0,
     "Koromaru" : 0,
     "Kazushi Miyamoto" : 0,
     "Mitsuru Kirijo" : 0
   },
-  "mes" : 7,
-  "lastModified" : "2026-07-29T16:31:18.537021600Z"
+  "mes" : 4,
+  "lastModified" : "2026-07-29T16:30:34.781397900Z"
 }

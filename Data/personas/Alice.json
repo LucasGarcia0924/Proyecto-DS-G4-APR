@@ -5,7 +5,8 @@
   "posiblesFusiones": [
     { "con": ["Orpheus"], "resultado": "Clotho" },
     { "con": ["Apsaras"], "resultado": "Dominion" },
-    { "con": ["Pixie"], "resultado": "Vazuki" }
+    { "con": ["Pixie"], "resultado": "Vazuki" },
+    { "con": ["Skadi"], "resultado": "Cybele" }
   ],
   "generadoPor": [
   ],
