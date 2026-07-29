@@ -1,0 +1,16 @@
+{
+  "nombre": "Setanta",
+  "arcano": "Star",
+  "nivel": 29,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 19,
+    "resistencia": 17,
+    "agilidad": 21,
+    "suerte": 15
+  }
+}

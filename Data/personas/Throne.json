@@ -1,0 +1,16 @@
+{
+  "nombre": "Throne",
+  "arcano": "Justice",
+  "nivel": 52,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 39,
+    "magia": 35,
+    "resistencia": 30,
+    "agilidad": 30,
+    "suerte": 33
+  }
+}

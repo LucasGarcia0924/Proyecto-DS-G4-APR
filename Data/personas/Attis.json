@@ -1,0 +1,16 @@
+{
+  "nombre": "Attis",
+  "arcano": "Hanged",
+  "nivel": 73,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 45,
+    "magia": 53,
+    "resistencia": 51,
+    "agilidad": 57,
+    "suerte": 32
+  }
+}

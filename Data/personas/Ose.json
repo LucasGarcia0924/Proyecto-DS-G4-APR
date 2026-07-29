@@ -1,16 +1,16 @@
 {
-  "nombre": "Orpheus",
+  "nombre": "Ose",
   "arcano": "Fool",
-  "nivel": 1,
+  "nivel": 41,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 2,
-    "magia": 2,
-    "resistencia": 2,
-    "agilidad": 3,
-    "suerte": 2
+    "fuerza": 32,
+    "magia": 23,
+    "resistencia": 28,
+    "agilidad": 25,
+    "suerte": 22
   }
 }

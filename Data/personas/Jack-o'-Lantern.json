@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
+  "nombre": "Jack-o'-Lantern",
   "arcano": "Magician",
-  "nivel": 8,
+  "nivel": 15,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
-    "resistencia": 8,
-    "agilidad": 6,
-    "suerte": 4
+    "fuerza": 8,
+    "magia": 15,
+    "resistencia": 9,
+    "agilidad": 9,
+    "suerte": 11
   }
 }

@@ -1,16 +1,16 @@
 {
-  "nombre": "Alice",
-  "arcano": "Death",
-  "nivel": 68,
+  "nombre": "Hariti",
+  "arcano": "Empress",
+  "nivel": 48,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 35,
-    "magia": 62,
+    "fuerza": 24,
+    "magia": 42,
     "resistencia": 31,
-    "agilidad": 51,
-    "suerte": 44
+    "agilidad": 28,
+    "suerte": 33
   }
 }

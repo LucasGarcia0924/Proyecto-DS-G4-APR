@@ -1,0 +1,16 @@
+{
+  "nombre": "Ananta",
+  "arcano": "Aeon",
+  "nivel": 73,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 51,
+    "magia": 51,
+    "resistencia": 68,
+    "agilidad": 35,
+    "suerte": 42
+  }
+}

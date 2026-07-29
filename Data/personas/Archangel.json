@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
-  "arcano": "Magician",
-  "nivel": 8,
+  "nombre": "Archangel",
+  "arcano": "Justice",
+  "nivel": 10,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
+    "fuerza": 8,
+    "magia": 8,
     "resistencia": 8,
-    "agilidad": 6,
-    "suerte": 4
+    "agilidad": 7,
+    "suerte": 6
   }
 }

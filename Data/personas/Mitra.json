@@ -1,0 +1,16 @@
+{
+  "nombre": "Mitra",
+  "arcano": "Temperance",
+  "nivel": 22,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 13,
+    "magia": 19,
+    "resistencia": 16,
+    "agilidad": 10,
+    "suerte": 15
+  }
+}

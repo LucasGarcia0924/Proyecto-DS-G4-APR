@@ -1,0 +1,16 @@
+{
+  "nombre": "Mother Harlot",
+  "arcano": "Empress",
+  "nivel": 77,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 44,
+    "magia": 65,
+    "resistencia": 60,
+    "agilidad": 36,
+    "suerte": 42
+  }
+}

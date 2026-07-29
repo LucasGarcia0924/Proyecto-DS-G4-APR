@@ -1,0 +1,16 @@
+{
+  "nombre": "Lakshmi",
+  "arcano": "Fortune",
+  "nivel": 73,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 39,
+    "magia": 61,
+    "resistencia": 38,
+    "agilidad": 45,
+    "suerte": 52
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Mada",
+  "arcano": "Hanged",
+  "nivel": 57,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 42,
+    "magia": 48,
+    "resistencia": 45,
+    "agilidad": 33,
+    "suerte": 28
+  }
+}

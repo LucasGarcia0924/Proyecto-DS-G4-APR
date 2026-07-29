@@ -1,0 +1,16 @@
+{
+  "nombre": "Kohryu",
+  "arcano": "Hierophant",
+  "nivel": 71,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 44,
+    "magia": 53,
+    "resistencia": 58,
+    "agilidad": 31,
+    "suerte": 40
+  }
+}

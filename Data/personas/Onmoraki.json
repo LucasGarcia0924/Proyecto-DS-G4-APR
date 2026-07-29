@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
-  "arcano": "Magician",
+  "nombre": "Onmoraki",
+  "arcano": "Hermit",
   "nivel": 8,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
-    "resistencia": 8,
-    "agilidad": 6,
+    "fuerza": 4,
+    "magia": 7,
+    "resistencia": 6,
+    "agilidad": 10,
     "suerte": 4
   }
 }

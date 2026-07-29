@@ -1,14 +1,14 @@
 {
-  "nombre": "Orpheus",
-  "arcano": "Fool",
-  "nivel": 1,
+  "nombre": "Apsaras",
+  "arcano": "Priestess",
+  "nivel": 2,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
     "fuerza": 2,
-    "magia": 2,
+    "magia": 4,
     "resistencia": 2,
     "agilidad": 3,
     "suerte": 2

@@ -1,0 +1,16 @@
+{
+  "nombre": "Lamia",
+  "arcano": "Hermit",
+  "nivel": 25,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 15,
+    "magia": 20,
+    "resistencia": 16,
+    "agilidad": 14,
+    "suerte": 17
+  }
+}

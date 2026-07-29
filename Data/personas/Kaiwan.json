@@ -1,0 +1,16 @@
+{
+  "nombre": "Kaiwan",
+  "arcano": "Star",
+  "nivel": 42,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 23,
+    "magia": 28,
+    "resistencia": 25,
+    "agilidad": 25,
+    "suerte": 32
+  }
+}

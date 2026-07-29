@@ -1,0 +1,16 @@
+{
+  "nombre": "Kurama Tengu",
+  "arcano": "Hermit",
+  "nivel": 46,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 32,
+    "resistencia": 25,
+    "agilidad": 37,
+    "suerte": 25
+  }
+}

@@ -1,16 +1,16 @@
 {
-  "nombre": "Orpheus",
+  "nombre": "Satanael",
   "arcano": "Fool",
-  "nivel": 1,
+  "nivel": 89,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 2,
-    "magia": 2,
-    "resistencia": 2,
-    "agilidad": 3,
-    "suerte": 2
+    "fuerza": 63,
+    "magia": 60,
+    "resistencia": 57,
+    "agilidad": 56,
+    "suerte": 56
   }
 }

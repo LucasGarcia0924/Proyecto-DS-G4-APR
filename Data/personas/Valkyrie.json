@@ -1,0 +1,16 @@
+{
+  "nombre": "Valkyrie",
+  "arcano": "Strength",
+  "nivel": 10,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 11,
+    "magia": 7,
+    "resistencia": 6,
+    "agilidad": 8,
+    "suerte": 5
+  }
+}

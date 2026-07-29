@@ -1,0 +1,16 @@
+{
+  "nombre": "Queen Medb",
+  "arcano": "Lovers",
+  "nivel": 28,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 14,
+    "magia": 26,
+    "resistencia": 15,
+    "agilidad": 19,
+    "suerte": 17
+  }
+}

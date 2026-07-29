@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
+  "nombre": "Mercurius",
   "arcano": "Magician",
-  "nivel": 8,
+  "nivel": 43,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
-    "resistencia": 8,
-    "agilidad": 6,
-    "suerte": 4
+    "fuerza": 23,
+    "magia": 31,
+    "resistencia": 22,
+    "agilidad": 33,
+    "suerte": 27
   }
 }

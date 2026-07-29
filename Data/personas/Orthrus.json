@@ -1,0 +1,16 @@
+{
+  "nombre": "Orthrus",
+  "arcano": "Hanged",
+  "nivel": 27,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 22,
+    "magia": 14,
+    "resistencia": 20,
+    "agilidad": 18,
+    "suerte": 15
+  }
+}

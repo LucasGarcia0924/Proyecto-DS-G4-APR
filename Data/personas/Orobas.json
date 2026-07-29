@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
+  "nombre": "Orobas",
   "arcano": "Magician",
-  "nivel": 8,
+  "nivel": 39,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
-    "resistencia": 8,
-    "agilidad": 6,
-    "suerte": 4
+    "fuerza": 22,
+    "magia": 33,
+    "resistencia": 22,
+    "agilidad": 28,
+    "suerte": 19
   }
 }

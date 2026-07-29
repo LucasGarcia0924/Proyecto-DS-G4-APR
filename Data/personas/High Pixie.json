@@ -1,0 +1,16 @@
+{
+  "nombre": "High Pixie",
+  "arcano": "Priestess",
+  "nivel": 20,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 11,
+    "magia": 20,
+    "resistencia": 10,
+    "agilidad": 13,
+    "suerte": 13
+  }
+}

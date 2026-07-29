@@ -1,0 +1,16 @@
+{
+  "nombre": "Odin",
+  "arcano": "Emperor",
+  "nivel": 74,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 44,
+    "magia": 63,
+    "resistencia": 42,
+    "agilidad": 46,
+    "suerte": 49
+  }
+}

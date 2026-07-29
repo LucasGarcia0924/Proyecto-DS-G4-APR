@@ -1,0 +1,16 @@
+{
+  "nombre": "Leanan Sidhe",
+  "arcano": "Empress",
+  "nivel": 21,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 12,
+    "magia": 22,
+    "resistencia": 13,
+    "agilidad": 15,
+    "suerte": 14
+  }
+}

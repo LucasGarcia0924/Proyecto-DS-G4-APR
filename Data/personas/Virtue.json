@@ -1,0 +1,16 @@
+{
+  "nombre": "Virtue",
+  "arcano": "Justice",
+  "nivel": 32,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 21,
+    "magia": 24,
+    "resistencia": 15,
+    "agilidad": 22,
+    "suerte": 22
+  }
+}

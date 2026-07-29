@@ -1,0 +1,16 @@
+{
+  "nombre": "Jikokuten",
+  "arcano": "Strength",
+  "nivel": 29,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 27,
+    "magia": 13,
+    "resistencia": 25,
+    "agilidad": 12,
+    "suerte": 17
+  }
+}

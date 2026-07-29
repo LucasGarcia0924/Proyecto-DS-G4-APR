@@ -1,0 +1,16 @@
+{
+  "nombre": "Thoth",
+  "arcano": "Hierophant",
+  "nivel": 40,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 20,
+    "magia": 40,
+    "resistencia": 20,
+    "agilidad": 25,
+    "suerte": 25
+  }
+}

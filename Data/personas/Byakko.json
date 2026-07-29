@@ -1,0 +1,16 @@
+{
+  "nombre": "Byakko",
+  "arcano": "Temperance",
+  "nivel": 63,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 45,
+    "magia": 44,
+    "resistencia": 50,
+    "agilidad": 39,
+    "suerte": 30
+  }
+}

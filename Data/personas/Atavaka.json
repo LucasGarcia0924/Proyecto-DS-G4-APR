@@ -1,0 +1,16 @@
+{
+  "nombre": "Atavaka",
+  "arcano": "Strength",
+  "nivel": 72,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 63,
+    "magia": 37,
+    "resistencia": 64,
+    "agilidad": 39,
+    "suerte": 35
+  }
+}

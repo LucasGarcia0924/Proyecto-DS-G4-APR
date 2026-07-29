@@ -1,0 +1,16 @@
+{
+  "nombre": "Asura",
+  "arcano": "Sun",
+  "nivel": 85,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 75,
+    "magia": 55,
+    "resistencia": 58,
+    "agilidad": 50,
+    "suerte": 54
+  }
+}

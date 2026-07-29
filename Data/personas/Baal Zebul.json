@@ -1,0 +1,16 @@
+{
+  "nombre": "Baal Zebul",
+  "arcano": "Moon",
+  "nivel": 72,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 51,
+    "magia": 56,
+    "resistencia": 45,
+    "agilidad": 42,
+    "suerte": 41
+  }
+}

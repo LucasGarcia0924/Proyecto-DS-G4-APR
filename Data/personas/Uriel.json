@@ -1,0 +1,16 @@
+{
+  "nombre": "Uriel",
+  "arcano": "Aeon",
+  "nivel": 57,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 47,
+    "magia": 42,
+    "resistencia": 35,
+    "agilidad": 36,
+    "suerte": 30
+  }
+}

@@ -1,16 +1,16 @@
 {
-  "nombre": "Orpheus",
-  "arcano": "Fool",
-  "nivel": 1,
+  "nombre": "Nekomata",
+  "arcano": "Magician",
+  "nivel": 3,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 2,
-    "magia": 2,
+    "fuerza": 4,
+    "magia": 4,
     "resistencia": 2,
-    "agilidad": 3,
+    "agilidad": 5,
     "suerte": 2
   }
 }

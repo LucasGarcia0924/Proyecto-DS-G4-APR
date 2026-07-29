@@ -1,0 +1,16 @@
+{
+  "nombre": "Narcissus",
+  "arcano": "Lovers",
+  "nivel": 23,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 12,
+    "magia": 18,
+    "resistencia": 10,
+    "agilidad": 17,
+    "suerte": 20
+  }
+}

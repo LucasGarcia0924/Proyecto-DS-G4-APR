@@ -1,0 +1,16 @@
+{
+  "nombre": "Vishnu",
+  "arcano": "Sun",
+  "nivel": 78,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 65,
+    "magia": 55,
+    "resistencia": 50,
+    "agilidad": 53,
+    "suerte": 42
+  }
+}

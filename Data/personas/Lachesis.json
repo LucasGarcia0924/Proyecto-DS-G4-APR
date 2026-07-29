@@ -1,0 +1,16 @@
+{
+  "nombre": "Lachesis",
+  "arcano": "Fortune",
+  "nivel": 44,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 22,
+    "magia": 37,
+    "resistencia": 23,
+    "agilidad": 30,
+    "suerte": 29
+  }
+}

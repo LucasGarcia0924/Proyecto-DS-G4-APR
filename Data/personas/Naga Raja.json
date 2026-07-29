@@ -1,0 +1,16 @@
+{
+  "nombre": "Naga Raja",
+  "arcano": "Emperor",
+  "nivel": 43,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 33,
+    "magia": 31,
+    "resistencia": 22,
+    "agilidad": 27,
+    "suerte": 23
+  }
+}

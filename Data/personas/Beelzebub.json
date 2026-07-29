@@ -1,16 +1,16 @@
 {
-  "nombre": "Alice",
-  "arcano": "Death",
-  "nivel": 68,
+  "nombre": "Beelzebub",
+  "arcano": "Devil",
+  "nivel": 81,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 35,
+    "fuerza": 50,
     "magia": 62,
-    "resistencia": 31,
-    "agilidad": 51,
-    "suerte": 44
+    "resistencia": 50,
+    "agilidad": 60,
+    "suerte": 52
   }
 }

@@ -1,16 +1,16 @@
 {
-  "nombre": "Orpheus",
+  "nombre": "Black Frost",
   "arcano": "Fool",
-  "nivel": 1,
+  "nivel": 37,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 2,
-    "magia": 2,
-    "resistencia": 2,
-    "agilidad": 3,
-    "suerte": 2
+    "fuerza": 22,
+    "magia": 34,
+    "resistencia": 23,
+    "agilidad": 25,
+    "suerte": 20
   }
 }

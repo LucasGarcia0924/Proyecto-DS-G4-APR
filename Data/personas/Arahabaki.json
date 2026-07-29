@@ -1,0 +1,16 @@
+{
+  "nombre": "Arahabaki",
+  "arcano": "Hermit",
+  "nivel": 68,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 47,
+    "magia": 52,
+    "resistencia": 53,
+    "agilidad": 32,
+    "suerte": 36
+  }
+}

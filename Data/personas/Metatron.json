@@ -1,0 +1,16 @@
+{
+  "nombre": "Metatron",
+  "arcano": "Aeon",
+  "nivel": 87,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 60,
+    "magia": 65,
+    "resistencia": 65,
+    "agilidad": 55,
+    "suerte": 53
+  }
+}

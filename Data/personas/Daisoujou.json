@@ -1,0 +1,16 @@
+{
+  "nombre": "Daisoujou",
+  "arcano": "Hierophant",
+  "nivel": 59,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 33,
+    "magia": 49,
+    "resistencia": 38,
+    "agilidad": 31,
+    "suerte": 42
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Bishamonten",
+  "arcano": "Tower",
+  "nivel": 60,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 50,
+    "magia": 38,
+    "resistencia": 45,
+    "agilidad": 36,
+    "suerte": 30
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Baphomet",
+  "arcano": "Devil",
+  "nivel": 30,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 20,
+    "magia": 25,
+    "resistencia": 22,
+    "agilidad": 16,
+    "suerte": 19
+  }
+}

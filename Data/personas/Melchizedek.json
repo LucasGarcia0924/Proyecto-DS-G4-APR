@@ -1,0 +1,16 @@
+{
+  "nombre": "Melchizedek",
+  "arcano": "Justice",
+  "nivel": 66,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 54,
+    "magia": 47,
+    "resistencia": 47,
+    "agilidad": 35,
+    "suerte": 31
+  }
+}

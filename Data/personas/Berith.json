@@ -1,0 +1,16 @@
+{
+  "nombre": "Berith",
+  "arcano": "Hierophant",
+  "nivel": 13,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 12,
+    "magia": 7,
+    "resistencia": 10,
+    "agilidad": 11,
+    "suerte": 6
+  }
+}

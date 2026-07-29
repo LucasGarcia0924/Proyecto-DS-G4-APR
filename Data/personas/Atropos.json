@@ -1,0 +1,16 @@
+{
+  "nombre": "Atropos",
+  "arcano": "Fortune",
+  "nivel": 56,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 45,
+    "resistencia": 32,
+    "agilidad": 36,
+    "suerte": 40
+  }
+}

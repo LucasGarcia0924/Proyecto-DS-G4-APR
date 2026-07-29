@@ -1,0 +1,16 @@
+{
+  "nombre": "Silky",
+  "arcano": "Lovers",
+  "nivel": 5,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 3,
+    "magia": 7,
+    "resistencia": 3,
+    "agilidad": 4,
+    "suerte": 5
+  }
+}

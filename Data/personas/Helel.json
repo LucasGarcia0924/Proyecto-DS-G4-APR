@@ -1,0 +1,16 @@
+{
+  "nombre": "Helel",
+  "arcano": "Star",
+  "nivel": 88,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 63,
+    "magia": 63,
+    "resistencia": 62,
+    "agilidad": 58,
+    "suerte": 58
+  }
+}

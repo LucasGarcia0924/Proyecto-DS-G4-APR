@@ -1,0 +1,16 @@
+{
+  "nombre": "Shiva",
+  "arcano": "Tower",
+  "nivel": 82,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 63,
+    "magia": 57,
+    "resistencia": 48,
+    "agilidad": 57,
+    "suerte": 55
+  }
+}

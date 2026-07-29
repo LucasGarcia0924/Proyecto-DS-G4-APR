@@ -1,0 +1,16 @@
+{
+  "nombre": "Kaguya",
+  "arcano": "Moon",
+  "nivel": 34,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 19,
+    "magia": 32,
+    "resistencia": 28,
+    "agilidad": 19,
+    "suerte": 11
+  }
+}

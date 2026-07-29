@@ -1,0 +1,16 @@
+{
+  "nombre": "Captain Kidd",
+  "arcano": "Chariot",
+  "nivel": 18,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 14,
+    "magia": 8,
+    "resistencia": 16,
+    "agilidad": 12,
+    "suerte": 11
+  }
+}

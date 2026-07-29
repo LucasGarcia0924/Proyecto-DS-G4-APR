@@ -1,0 +1,16 @@
+{
+  "nombre": "Cendrillon",
+  "arcano": "Star",
+  "nivel": 36,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 25,
+    "magia": 22,
+    "resistencia": 20,
+    "agilidad": 28,
+    "suerte": 20
+  }
+}

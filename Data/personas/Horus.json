@@ -1,0 +1,16 @@
+{
+  "nombre": "Horus",
+  "arcano": "Sun",
+  "nivel": 67,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 42,
+    "magia": 53,
+    "resistencia": 34,
+    "agilidad": 48,
+    "suerte": 40
+  }
+}

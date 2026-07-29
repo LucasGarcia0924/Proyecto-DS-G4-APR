@@ -1,16 +1,16 @@
 {
-  "nombre": "Alice",
-  "arcano": "Death",
-  "nivel": 68,
+  "nombre": "Houou",
+  "arcano": "Star",
+  "nivel": 70,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
     "fuerza": 35,
-    "magia": 62,
-    "resistencia": 31,
-    "agilidad": 51,
-    "suerte": 44
+    "magia": 57,
+    "resistencia": 39,
+    "agilidad": 54,
+    "suerte": 41
   }
 }

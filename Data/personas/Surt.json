@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
+  "nombre": "Surt",
   "arcano": "Magician",
-  "nivel": 8,
+  "nivel": 60,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
-    "resistencia": 8,
-    "agilidad": 6,
-    "suerte": 4
+    "fuerza": 43,
+    "magia": 51,
+    "resistencia": 40,
+    "agilidad": 28,
+    "suerte": 34
   }
 }

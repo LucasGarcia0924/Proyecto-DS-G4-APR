@@ -1,0 +1,16 @@
+{
+  "nombre": "Siegfried",
+  "arcano": "Strength",
+  "nivel": 54,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 44,
+    "magia": 29,
+    "resistencia": 38,
+    "agilidad": 36,
+    "suerte": 25
+  }
+}

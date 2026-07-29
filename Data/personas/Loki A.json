@@ -1,0 +1,16 @@
+{
+  "nombre": "Loki A",
+  "arcano": "Justice",
+  "nivel": 60,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 44,
+    "magia": 42,
+    "resistencia": 33,
+    "agilidad": 38,
+    "suerte": 33
+  }
+}

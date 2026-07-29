@@ -1,0 +1,16 @@
+{
+  "nombre": "Belphegor",
+  "arcano": "Emperor",
+  "nivel": 53,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 34,
+    "magia": 43,
+    "resistencia": 38,
+    "agilidad": 28,
+    "suerte": 29
+  }
+}

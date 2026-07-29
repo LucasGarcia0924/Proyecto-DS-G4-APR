@@ -1,0 +1,16 @@
+{
+  "nombre": "Robin Hood",
+  "arcano": "Justice",
+  "nivel": 37,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 25,
+    "magia": 27,
+    "resistencia": 22,
+    "agilidad": 24,
+    "suerte": 20
+  }
+}

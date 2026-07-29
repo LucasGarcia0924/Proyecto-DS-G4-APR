@@ -1,0 +1,16 @@
+{
+  "nombre": "Suzaku",
+  "arcano": "Temperance",
+  "nivel": 55,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 31,
+    "magia": 40,
+    "resistencia": 32,
+    "agilidad": 42,
+    "suerte": 31
+  }
+}

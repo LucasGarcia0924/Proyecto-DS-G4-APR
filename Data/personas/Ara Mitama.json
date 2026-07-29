@@ -1,0 +1,16 @@
+{
+  "nombre": "Ara Mitama",
+  "arcano": "Chariot",
+  "nivel": 6,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 8,
+    "magia": 3,
+    "resistencia": 4,
+    "agilidad": 5,
+    "suerte": 5
+  }
+}

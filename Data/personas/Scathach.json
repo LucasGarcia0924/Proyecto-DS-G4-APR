@@ -1,0 +1,16 @@
+{
+  "nombre": "Scathach",
+  "arcano": "Priestess",
+  "nivel": 75,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 55,
+    "magia": 58,
+    "resistencia": 40,
+    "agilidad": 49,
+    "suerte": 42
+  }
+}

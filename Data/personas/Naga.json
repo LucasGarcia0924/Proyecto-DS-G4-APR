@@ -1,0 +1,16 @@
+{
+  "nombre": "Naga",
+  "arcano": "Hermit",
+  "nivel": 17,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 14,
+    "magia": 10,
+    "resistencia": 11,
+    "agilidad": 14,
+    "suerte": 9
+  }
+}

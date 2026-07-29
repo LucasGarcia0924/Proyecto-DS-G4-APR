@@ -1,15 +1,15 @@
 {
-  "nombre": "Jack Frost",
-  "arcano": "Magician",
-  "nivel": 8,
+  "nombre": "Forneus",
+  "arcano": "Emperor",
+  "nivel": 7,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
     "fuerza": 5,
-    "magia": 9,
-    "resistencia": 8,
+    "magia": 6,
+    "resistencia": 7,
     "agilidad": 6,
     "suerte": 4
   }

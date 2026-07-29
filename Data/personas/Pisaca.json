@@ -1,16 +1,16 @@
 {
-  "nombre": "Alice",
+  "nombre": "Pisaca",
   "arcano": "Death",
-  "nivel": 68,
+  "nivel": 15,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 35,
-    "magia": 62,
-    "resistencia": 31,
-    "agilidad": 51,
-    "suerte": 44
+    "fuerza": 10,
+    "magia": 13,
+    "resistencia": 16,
+    "agilidad": 9,
+    "suerte": 7
   }
 }

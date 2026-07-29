@@ -1,0 +1,16 @@
+{
+  "nombre": "Seth",
+  "arcano": "Moon",
+  "nivel": 62,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 47,
+    "magia": 49,
+    "resistencia": 42,
+    "agilidad": 29,
+    "suerte": 35
+  }
+}

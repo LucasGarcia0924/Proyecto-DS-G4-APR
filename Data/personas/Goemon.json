@@ -1,0 +1,16 @@
+{
+  "nombre": "Goemon",
+  "arcano": "Emperor",
+  "nivel": 27,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 24,
+    "magia": 16,
+    "resistencia": 18,
+    "agilidad": 17,
+    "suerte": 13
+  }
+}

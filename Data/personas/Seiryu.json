@@ -1,0 +1,16 @@
+{
+  "nombre": "Seiryu",
+  "arcano": "Temperance",
+  "nivel": 38,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 24,
+    "magia": 31,
+    "resistencia": 27,
+    "agilidad": 21,
+    "suerte": 18
+  }
+}

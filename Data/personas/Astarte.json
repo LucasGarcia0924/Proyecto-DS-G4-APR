@@ -1,0 +1,16 @@
+{
+  "nombre": "Astarte",
+  "arcano": "Empress",
+  "nivel": 54,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 42,
+    "magia": 36,
+    "resistencia": 33,
+    "agilidad": 33,
+    "suerte": 31
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "nombre": "Eligor",
+  "arcano": "Tower",
+  "nivel": 31,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 26,
+    "magia": 21,
+    "resistencia": 24,
+    "agilidad": 20,
+    "suerte": 15
+  }
+}

@@ -1,16 +1,16 @@
 {
-  "nombre": "Jack Frost",
-  "arcano": "Magician",
-  "nivel": 8,
+  "nombre": "Tam Lin",
+  "arcano": "Lovers",
+  "nivel": 13,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 5,
-    "magia": 9,
+    "fuerza": 12,
+    "magia": 11,
     "resistencia": 8,
-    "agilidad": 6,
-    "suerte": 4
+    "agilidad": 10,
+    "suerte": 5
   }
 }

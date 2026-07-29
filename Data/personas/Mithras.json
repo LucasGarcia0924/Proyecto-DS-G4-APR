@@ -1,0 +1,16 @@
+{
+  "nombre": "Mithras",
+  "arcano": "Chariot",
+  "nivel": 24,
+  "posiblesFusiones": [],
+  "generadoPor": [],
+  "fusionEspecial": [],
+  "requisitoFusion": {},
+  "estadisticas": {
+    "fuerza": 16,
+    "magia": 19,
+    "resistencia": 15,
+    "agilidad": 14,
+    "suerte": 15
+  }
+}

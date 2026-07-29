@@ -1,16 +1,16 @@
 {
-  "nombre": "Alice",
-  "arcano": "Death",
-  "nivel": 68,
+  "nombre": "Alilat",
+  "arcano": "Empress",
+  "nivel": 84,
   "posiblesFusiones": [],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
-    "fuerza": 35,
-    "magia": 62,
-    "resistencia": 31,
+    "fuerza": 51,
+    "magia": 70,
+    "resistencia": 60,
     "agilidad": 51,
-    "suerte": 44
+    "suerte": 51
   }
 }
