@@ -2,7 +2,9 @@
   "nombre": "Orpheus",
   "arcano": "Fool",
   "nivel": 1,
-  "posiblesFusiones": [],
+  "posiblesFusiones": [
+    { "con": ["Jack Frost"], "resultado": "Omoikane" }
+  ],
   "generadoPor": [],
   "fusionEspecial": [],
   "requisitoFusion": {},

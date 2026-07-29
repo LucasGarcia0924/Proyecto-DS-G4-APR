@@ -2,10 +2,21 @@
   "nombre": "Cybele",
   "arcano": "Lovers",
   "nivel": 67,
-  "posiblesFusiones": [],
-  "generadoPor": [],
-  "fusionEspecial": [],
-  "requisitoFusion": {},
+  "posiblesFusiones": [
+    { "con": ["Orpheus"], "resultado": "Dominion" },
+    { "con": ["Apsaras"], "resultado": "Orobas" },
+    { "con": ["Pixie"], "resultado": "Queen Medb" }
+  ],
+  "generadoPor": [
+    { "de": ["Daisoujou", "Kikuri-Hime"] },
+    { "de": ["Mot", "Gabriel"]},
+    { "de": ["Melchizedek", "Decarabia"]}
+  ],
+  "fusionEspecial": [
+  ],
+  "requisitoFusion": {
+    "socialLink": "Yukari Takeba"
+  },
   "estadisticas": {
     "fuerza": 39,
     "magia": 54,

@@ -3,7 +3,9 @@
   "arcano": "Hierophant",
   "nivel": 7,
   "posiblesFusiones": [],
-  "generadoPor": [],
+  "generadoPor": [
+     { "de": ["Orpheus", "Jack Frost"] }
+  ],
   "fusionEspecial": [],
   "requisitoFusion": {},
   "estadisticas": {
