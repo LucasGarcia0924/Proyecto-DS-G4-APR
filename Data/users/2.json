@@ -1,0 +1,43 @@
+{
+  "nombreUsuario" : "2",
+  "contraseña" : "+g9yUslfLzwTVDy7wcKJVhIGWLDT7f+Sk7hUQUrllCE=",
+  "preguntaHash" : "NombreReal",
+  "respuestaHash" : "nrSO87WaI7OkQ0oZQq3mTLzwI+qiZw1tiDLbHzas400=",
+  "salt" : "4zFaDEAc7vXx60gn5Tvdvw==",
+  "equipo" : [ "Orpheus" ],
+  "owned" : {
+    "Orpheus" : true
+  },
+  "socialLinks" : {
+    "Kenji Tomochika" : 0,
+    "Presidente Tanaka" : 0,
+    "Yuko Nishiwaki" : 0,
+    "Equipo Aniquilación de Nyx" : 0,
+    "Bunkichi y Mitsuko" : 0,
+    "Fuuka Yamagishi" : 0,
+    "Pharos" : 0,
+    "Maiko Oohashi" : 0,
+    "Hidetoshi Odagiri" : 0,
+    "Ken Amada" : 0,
+    "Mamoru Hayase" : 0,
+    "Bebe" : 0,
+    "Koromaru" : 0,
+    "S.E.E.S." : 0,
+    "Aigis" : 0,
+    "Akinari Kamiki" : 0,
+    "Akihiko Sanada" : 0,
+    "Nozomi Suemitsu" : 0,
+    "Junpei Iori" : 0,
+    "Maya" : 0,
+    "Chihiro Fushimi" : 0,
+    "Yukari Takeba" : 0,
+    "Mitsuru Kirijo" : 0,
+    "Ryoji Mochizuki" : 0,
+    "Shinjiro Aragaki" : 0,
+    "Kazushi Miyamoto" : 0,
+    "Mutatsu" : 0,
+    "Keisuke Hiraga" : 0
+  },
+  "mes" : 4,
+  "lastModified" : "2026-07-30T05:20:30.921928700Z"
+}

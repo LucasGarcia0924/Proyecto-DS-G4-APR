@@ -24,10 +24,14 @@ public class interfaz {
     private final Scanner escaner;
 
     public interfaz() {
+        this(new Scanner(System.in));
+    }
+
+    public interfaz(Scanner escaner) {
         this.consola = new consola();
         this.finPrograma = false;
-        this.usuario = new usuario();
-        this.escaner = new Scanner(System.in);
+        this.escaner = escaner != null ? escaner : new Scanner(System.in);
+        this.usuario = new usuario(this.escaner);
     }
 
     /**
@@ -46,9 +50,15 @@ public class interfaz {
         // 2. Mostrar menú principal
         try {
             while (!finPrograma) {
-            consola.mostrarMenuPrincipal();
-            String opcion = escaner.nextLine();
-            switch (opcion) {
+                consola.mostrarMenuPrincipal();
+                System.out.print("Selecciona una opción (1-7): ");
+                System.out.flush();
+                if (!escaner.hasNextLine()) {
+                    finPrograma = true;
+                    break;
+                }
+                String opcion = escaner.nextLine().trim();
+                switch (opcion) {
                 // Lógica para llamar a las funciones que se encargan de cada opción del menú
                 case "1":
                     verEquipo();
@@ -80,24 +90,41 @@ public class interfaz {
             System.out.println("Error durante la ejecución del programa: " + e.getMessage());
         }
     }
+
+    /**
+     * Método auxiliar para cargar la lista de Social Links por defecto.
+     * Se usa cuando Data/socialLinks.json no existe o no se puede leer.
+     */
+    private void usarListaPorDefecto(modelos.usuario.User tu) {
+        String[] npcs = {"S.E.E.S.","Kenji Tomochika","Fuuka Yamagishi",
+            "Mitsuru Kirijo","Hidetoshi Odagiri","Bunkichi y Mitsuko","Yukari Takeba",
+            "Kazushi Miyamoto", "Chihiro Fushimi", "Maya", "Keisuke Hiraga","Yuko Nishiwaki",
+            "Maiko Oohashi","Pharos","Bebe","Presidente Tanaka", "Mutatsu","Mamoru Hayase",
+            "Nozomi Suemitsu", "Nozomi Suemitsu","Akinari Kamiki","Equipo Aniquilación de Nyx", "Aigis",
+            "Junpei Iori", "Akihiko Sanada", "Ken Amada", "Koromaru", "Shinjiro Aragaki", "Ryoji Mochizuki"};
+        for (String npc : npcs) {
+            tu.socialLinks.put(npc, 0);
+        }
+    }
+
     public synchronized void crearUsuario() throws Exception {
         usuario.managerUsuario mU = usuario.new managerUsuario();
 
         System.out.print("Ingresa tu nombre de usuario: ");
-        String nombreUsuario = escaner.nextLine();
+        String nombreUsuario = escaner.nextLine().trim();
         System.out.print("Ingresa contraseña: ");
         String contraseña = escaner.nextLine();
         System.out.print("Ingresa pregunta de seguridad: ");
-        String pregunta = escaner.nextLine();
+        String pregunta = escaner.nextLine().trim();
         System.out.print("Ingresa respuesta: ");
-        String respuesta = escaner.nextLine();
+        String respuesta = escaner.nextLine().trim();
 
         if (mU.usernameExists(nombreUsuario)) throw new IllegalArgumentException("Usuario ya existe");
         String salt = PasswordUtil.generateSaltBase64();
         String hash = PasswordUtil.hashPassword(contraseña, salt);
         String respuestaHash = PasswordUtil.hashPassword(respuesta, salt);
 
-        usuario.User tu = new modelos.usuario.User();
+        modelos.usuario.User tu = new modelos.usuario.User();
         tu.nombreUsuario = nombreUsuario;
         tu.salt = salt;
         tu.contraseña = hash;
@@ -109,33 +136,38 @@ public class interfaz {
         tu.registerOwned("Orpheus");
         tu.mes = 4;
         tu.socialLinks = new modelos.engine.Hash<>();
+        
         ObjectMapper mapper = new ObjectMapper();
         Path socialLinksPath = Paths.get("Data/socialLinks.json");
-        if (Files.exists(socialLinksPath)) {
-            modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
-            if (slData != null && slData.socialLinks != null) {
-                for (modelos.engine.SocialLinkEntry entry : slData.socialLinks) {
-                    if (entry != null && entry.npc != null && !entry.npc.isBlank()) {
-                        tu.socialLinks.put(entry.npc, 0);
+        
+        // Cargar Social Links con manejo de errores
+        try {
+            if (Files.exists(socialLinksPath)) {
+                modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                if (slData != null && slData.socialLinks != null) {
+                    for (modelos.engine.SocialLinkEntry entry : slData.socialLinks) {
+                        if (entry != null && entry.npc != null && !entry.npc.isBlank()) {
+                            tu.socialLinks.put(entry.npc, 0);
+                        }
                     }
                 }
+            } else {
+                // Si el archivo no existe, usar la lista por defecto
+                System.out.println("No se encontró Data/socialLinks.json. Usando lista por defecto.");
+                usarListaPorDefecto(tu);
             }
-        } else {
-            String[] npcs = {"S.E.E.S.","Kenji Tomochika","Fuuka Yamagishi",
-            "Mitsuru Kirijo","Hidetoshi Odagiri","Bunkichi y Mitsuko","Yukari Takeba",
-            "Kazushi Miyamoto", "Chihiro Fushimi", "Maya", "Keisuke Hiraga","Yuko Nishiwaki",
-            "Maiko Oohashi","Pharos","Bebe","Presidente Tanaka", "Mutatsu","Mamoru Hayase",
-            "Nozomi Suemitsu", "Nozomi Suemitsu","Akinari Kamiki","Equipo Aniquilación de Nyx", "Aigis",
-            "Junpei Iori", "Akihiko Sanada", "Ken Amada", "Koromaru", "Shinjiro Aragaki", "Ryoji Mochizuki"};
-            for (String npc : npcs) {
-                tu.socialLinks.put(npc, 0);
-            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar socialLinks.json: " + e.getMessage());
+            System.out.println("Usando lista de Social Links por defecto.");
+            usarListaPorDefecto(tu);
         }
+        
         tu.lastModified = Instant.now().toString();
 
         mU.saveUser(tu);
         System.out.println("Usuario creado exitosamente.");
     }
+
     public void verEquipo() throws Exception {
         usuario.managerUsuario mU = usuario.new managerUsuario();
         usuario.User tu = mU.getUsuarioActivo();
@@ -166,8 +198,13 @@ public class interfaz {
         levelIndex.buildFrom(personas);
         Path socialLinksPath = Paths.get("Data/socialLinks.json");
         if (Files.exists(socialLinksPath)) {
-            modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
-            socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+            try {
+                modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+            } catch (Exception e) {
+                System.out.println("Error al cargar socialLinks.json en verEquipo: " + e.getMessage());
+                socialGraph.construirDesdePersonas(personas);
+            }
         } else {
             socialGraph.construirDesdePersonas(personas);
         }
@@ -210,7 +247,6 @@ public class interfaz {
                                 break;
                             }
                             case "n" : {
-                            // Se rompe el bucle de selección pero no se continua el proceso de cambio de usuario
                                 flag = false;    
                                 break;
                             }
@@ -307,8 +343,13 @@ public class interfaz {
         levelIndex.buildFrom(personas);
         Path socialLinksPath = Paths.get("Data/socialLinks.json");
         if (Files.exists(socialLinksPath)) {
-            modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
-            socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+            try {
+                modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+            } catch (Exception e) {
+                System.out.println("Error al cargar socialLinks.json en verRegistro: " + e.getMessage());
+                socialGraph.construirDesdePersonas(personas);
+            }
         } else {
             socialGraph.construirDesdePersonas(personas);
         }
@@ -363,6 +404,7 @@ public class interfaz {
             }
         }
     }
+
     public void verSocialLinks() {
         try {
             usuario.managerUsuario mU = usuario.new managerUsuario();
@@ -396,8 +438,13 @@ public class interfaz {
             ObjectMapper mapperSL = new ObjectMapper();
             Path socialLinksPath = Paths.get("Data/socialLinks.json");
             if (Files.exists(socialLinksPath)) {
-                modelos.engine.SocialLinkData slData = mapperSL.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
-                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+                try {
+                    modelos.engine.SocialLinkData slData = mapperSL.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                    socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+                } catch (Exception e) {
+                    System.out.println("Error al cargar socialLinks.json en verSocialLinks: " + e.getMessage());
+                    socialGraph.construirDesdePersonas(personas);
+                }
             } else {
                 socialGraph.construirDesdePersonas(personas);
             }
@@ -525,15 +572,6 @@ public class interfaz {
         return false;
     }
 
-    private String formatIngredient(String ingredient, usuario.UserView userView) {
-        if (ingredient == null || ingredient.isBlank()) return "";
-        String formatted = ingredient.trim();
-        if (isTeamMember(formatted, userView)) {
-            formatted += " (EN EQUIPO)";
-        }
-        return formatted;
-    }
-
     private void mostrarDetallesPersona(modelos.engine.Persona persona, usuario.UserView userView) {
         usuario.User tu = userView.usuario;
         System.out.println("\n╔════════════════════════════════════════╗");
@@ -619,8 +657,13 @@ public class interfaz {
             levelIndex.buildFrom(personas);
             Path socialLinksPath = Paths.get("Data/socialLinks.json");
             if (Files.exists(socialLinksPath)) {
-                modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
-                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+                try {
+                    modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                    socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+                } catch (Exception e) {
+                    System.out.println("Error al cargar socialLinks.json en buscarPersona: " + e.getMessage());
+                    socialGraph.construirDesdePersonas(personas);
+                }
             } else {
                 socialGraph.construirDesdePersonas(personas);
             }
@@ -829,8 +872,13 @@ public class interfaz {
             levelIndex.buildFrom(personas);
             Path socialLinksPath = Paths.get("Data/socialLinks.json");
             if (Files.exists(socialLinksPath)) {
-                modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
-                socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+                try {
+                    modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                    socialGraph.construirDesdeSocialLinks(slData.socialLinks);
+                } catch (Exception e) {
+                    System.out.println("Error al cargar socialLinks.json en verFusionesEspeciales: " + e.getMessage());
+                    socialGraph.construirDesdePersonas(personas);
+                }
             } else {
                 socialGraph.construirDesdePersonas(personas);
             }
@@ -891,8 +939,8 @@ public class interfaz {
             System.out.println("Error al mostrar fusiones especiales: " + e.getMessage());
         }
     }
+
     public void cambiarUsuario() {
-        // Implementar la lógica para cambiar de usuario
         boolean bandera = false;
         boolean flag = true;
         while (flag == true) {
@@ -905,7 +953,6 @@ public class interfaz {
                     break;
                 }
                 case "n" : {
-                // Se rompe el bucle de selección pero no se continua el proceso de cambio de usuario
                     flag = false;    
                     break;
                 }
@@ -913,8 +960,7 @@ public class interfaz {
                      System.out.println("Opción no válida. Por favor, seleccione 's' o 'n'.");
                 break;     
             }
-            // Se rompe el bucle de selección y se continua el proceso de cambio de usuario
-                    }
+        }
         if (bandera == true){
             try {
                 usuario.seleccionarUsuario();

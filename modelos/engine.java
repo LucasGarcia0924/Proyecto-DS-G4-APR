@@ -221,6 +221,9 @@ public class engine {
     }
 
     public static class Arbol<K, V> {
+        public static <K, V> Arbol<K, V> crear() {
+            return new Arbol<>();
+        }
         public static class Entry<K, V> { public K key; public V value; public Entry(K key, V value){ this.key = key; this.value = value; } }
         public interface ValueFactory<K, V> { V create(K key); }
         private static class Nodo<K, V> { K key; V value; Nodo<K, V> izquierda; Nodo<K, V> derecha; Nodo(K key, V value){ this.key = key; this.value = value; } }
@@ -287,14 +290,14 @@ public class engine {
         public int nivelActual;
         public int nivelMaximo;
         public String desbloquea;
-        public Lista<Requisito> requisitos = new Lista<>();
+        public java.util.List<Requisito> requisitos = new java.util.ArrayList<>();
 
         public NPC() {}
         public NPC(String nombre, int nivelMaximo) {
             this.nombre = nombre;
             this.nivelMaximo = nivelMaximo;
             this.nivelActual = 0;
-            this.requisitos = new Lista<>();
+            this.requisitos = new java.util.ArrayList<>();
         }
     }
 
@@ -305,15 +308,15 @@ public class engine {
     }
 
     public static class SocialLinkData {
-        public Lista<SocialLinkEntry> socialLinks;
+        public java.util.List<SocialLinkEntry> socialLinks;
     }
 
     public static class SocialLinkEntry {
         public String npc;
         public String arcano;
         public int nivelMaximo;
-        public Lista<String> desbloquea;
-        public Lista<Requisito> requisitos;
+        public java.util.List<String> desbloquea;
+        public java.util.List<Requisito> requisitos;
     }
 
     /* ---------------------------
@@ -327,11 +330,10 @@ public class engine {
         }
         private Node cabeza;
         private int tamaño;
-        private final Hash<String, Node> indicePorNombre = new Hash<>(); // índice auxiliar name -> node
+        private final Hash<String, Node> indicePorNombre = new Hash<>();
 
         public Registro() { cabeza = null; tamaño = 0; }
 
-        // Construye la lista enlazada desde colección (solo al inicio)
         public void buildFrom(Lista<Persona> personas) {
             Node cola = null;
             for (Persona p : personas) {
@@ -359,7 +361,6 @@ public class engine {
 
         public int size() { return tamaño; }
 
-        // Imprime el registro completo (orden de carga)
         public void mostrarRegistro() {
             Node cur = cabeza;
             while (cur != null) {
@@ -370,10 +371,10 @@ public class engine {
     }
 
     /* ---------------------------
-    indicePorNivel: Permite consultar personas desde ciertos rangos
+    indicePorNivel
     --------------------------- */
     public static class indicePorNivel {
-        private final Arbol<Integer, Lista<Persona>> indice = new Arbol<>();
+        private final Arbol<Integer, Lista<Persona>> indice = Arbol.crear();
 
         public void buildFrom(Lista<Persona> personas) {
             indice.clear();
@@ -382,7 +383,6 @@ public class engine {
             }
         }
 
-        // Consulta por rango inclusive
         public Lista<Persona> busquedaPorRango(int min, int max) {
             Lista<Persona> out = new Lista<>();
             Lista<Arbol.Entry<Integer, Lista<Persona>>> sub = indice.subMap(min, true, max, true);
@@ -392,7 +392,6 @@ public class engine {
             return out;
         }
 
-        // Obtener top N por nivel descendente
         public Lista<Persona> topN(int n) {
             Lista<Persona> out = new Lista<>();
             for (Integer lvl : indice.descendingKeySet()) {
@@ -464,7 +463,10 @@ public class engine {
             }
         }
 
-        public void construirDesdeSocialLinks(Lista<SocialLinkEntry> entries) {
+        // ============================================================
+        // ✅ CORREGIDO: Acepta java.util.List en lugar de Lista
+        // ============================================================
+        public void construirDesdeSocialLinks(java.util.List<SocialLinkEntry> entries) {
             npcs.clear();
             aliasToCanonical.clear();
             if (entries == null) return;
@@ -476,7 +478,7 @@ public class engine {
                 npc.nivelMaximo = entry.nivelMaximo;
                 npc.nivelActual = 0;
                 npc.desbloquea = (entry.desbloquea == null || entry.desbloquea.isEmpty()) ? null : entry.desbloquea.get(0);
-                npc.requisitos = entry.requisitos == null ? new Lista<>() : entry.requisitos;
+                npc.requisitos = entry.requisitos == null ? new java.util.ArrayList<>() : new java.util.ArrayList<>(entry.requisitos);
                 npcs.put(npc.nombre, npc);
                 if (npc.nombre.equalsIgnoreCase("Bunkichi y Mitsuko")) {
                     aliasToCanonical.put("bunkichi y mitsuku", npc.nombre);
@@ -536,7 +538,7 @@ public class engine {
             return npc == null ? 10 : npc.nivelMaximo;
         }
 
-        public boolean isFusionUnlocked(Persona resultado, usuario.User usuario) {
+        public boolean isFusionUnlocked(Persona resultado, modelos.usuario.User usuario) {
             if (resultado == null || resultado.requisitoFusion == null || resultado.requisitoFusion.socialLink == null || resultado.requisitoFusion.socialLink.isBlank()) {
                 return true;
             }
@@ -567,7 +569,6 @@ public class engine {
             }
         }
 
-        // Incrementa nivel; si llega al máximo devuelve la persona desbloqueada
         public String aumentarRango(String nombreNPC, int delta) {
             NPC npc = npcs.get(nombreNPC);
             if (npc == null) return null;
@@ -600,7 +601,7 @@ public class engine {
             if (npc == null) return null;
 
             if (!puedeSubir(nombreNPC, mesActual, socialLevels)) {
-                return null; // no cumple requisitos
+                return null;
             }
 
             int anterior = npc.nivelActual;
@@ -640,7 +641,7 @@ public class engine {
     }
 
     /* ---------------------------
-    FusionIndex: HashMaps en memoria
+    FusionIndex
     --------------------------- */
     public static class indiceFusiones {
         private final Hash<String, String> indicePar = new Hash<>();
@@ -658,7 +659,7 @@ public class engine {
         }
 
         public void construirDe(Lista<Persona> personas) {
-        indicePar.clear();
+            indicePar.clear();
             for (Persona p : personas) {
                 if (p.posiblesFusiones == null) continue;
                 for (FusionEntry fe : p.posiblesFusiones) {
@@ -671,7 +672,6 @@ public class engine {
             }
         }
 
-        // Obtener el resultado de fusionar dos personas
         public String resultadoFusion(engine.Persona a, engine.Persona b) {
             Lista<String> names = new Lista<>();
             names.add(a.nombre);
@@ -682,7 +682,7 @@ public class engine {
     }
 
     /* ---------------------------
-    TEAM: arreglo fijo con liberar persona
+    TEAM
     --------------------------- */
     public static class Equipo {
         public final Persona[] miembros;
@@ -693,7 +693,6 @@ public class engine {
             this.miembros = new Persona[capacidad];
         }
 
-        // Añadir persona por referencia (si hay espacio)
         public boolean agregarPersona(Persona p) {
             for (int i = 0; i < capacidad; i++) {
                 if (miembros[i] == null) { miembros[i] = p; return true; }
@@ -701,7 +700,6 @@ public class engine {
             return false;
         }
 
-        // Liberar (deshacerse) de una persona por nombre
         public boolean liberarPersona(String name) {
             for (int i = 0; i < capacidad; i++) {
                 if (miembros[i] != null && miembros[i].nombre.equalsIgnoreCase(name)) {
@@ -712,7 +710,6 @@ public class engine {
             return false;
         }
 
-        // Remover por referencia (usado en las fusiones)
         public boolean removerPersona(Persona p) {
             for (int i = 0; i < capacidad; i++) {
                 if (miembros[i] == p) { miembros[i] = null; return true; }
@@ -730,7 +727,6 @@ public class engine {
 
         public boolean tieneEspacio() { return espaciosOcupados() < capacidad; }
 
-        // Imprimir equipo
         public void mostrarEquipo() {
             System.out.println("Equipo (cap " + capacidad + "):");
             for (int i = 0; i < capacidad; i++) {
@@ -738,8 +734,8 @@ public class engine {
             }
         }
     }
-    public static class ArbolSimple {
 
+    public static class ArbolSimple {
         private Nodo raiz;
 
         public ArbolSimple() {
@@ -747,9 +743,7 @@ public class engine {
         }
     
         public class Nodo {
-
             int dato;
-
             Nodo izquierda;
             Nodo derecha;
 
@@ -758,54 +752,42 @@ public class engine {
                 izquierda = null;
                 derecha = null;
             }
-
         }
+
         public void insertar(int dato) {
-        raiz = insertarRec(raiz, dato);
-    }
+            raiz = insertarRec(raiz, dato);
+        }
 
         private Nodo insertarRec(Nodo actual, int dato) {
-
             if (actual == null)
                 return new Nodo(dato);
-
             if (dato < actual.dato)
                 actual.izquierda = insertarRec(actual.izquierda, dato);
-
             else if (dato > actual.dato)
                 actual.derecha = insertarRec(actual.derecha, dato);
-
             return actual;
-
         }
-        public boolean buscar(int dato) {
-    return buscarRec(raiz, dato);
-}
-        private boolean buscarRec(Nodo actual, int dato) {
 
+        public boolean buscar(int dato) {
+            return buscarRec(raiz, dato);
+        }
+
+        private boolean buscarRec(Nodo actual, int dato) {
             if (actual == null)
                 return false;
-
             if (actual.dato == dato)
                 return true;
-
             if (dato < actual.dato)
                 return buscarRec(actual.izquierda, dato);
-
             return buscarRec(actual.derecha, dato);
-
         }
-
     }
 
     public static class MiHash<K, V> {
-
         public class Nodo<K, V> {
-
-        K llave;
-        V valor;
-
-        Nodo<K, V> siguiente;
+            K llave;
+            V valor;
+            Nodo<K, V> siguiente;
 
             public Nodo(K llave, V valor) {
                 this.llave = llave;
@@ -821,76 +803,53 @@ public class engine {
         public MiHash(int tamaño) {
             this.tamaño = tamaño;
             tabla = (Nodo<K, V>[]) new Nodo[tamaño];
-    }
+        }
 
         private int hash(K llave) {
             return Math.abs(llave.hashCode()) % tamaño;
         }
     
         public void put(K llave, V valor) {
-
             int indice = hash(llave);
-
             Nodo<K, V> nuevo = new Nodo<>(llave, valor);
-
             if (tabla[indice] == null) {
-
                 tabla[indice] = nuevo;
                 return;
-
             }
-
             Nodo<K, V> actual = tabla[indice];
-
             while (actual.siguiente != null) {
                 actual = actual.siguiente;
             }
-
             actual.siguiente = nuevo;
         }
 
         public V get(K llave) {
-
             int indice = hash(llave);
-
             Nodo<K, V> actual = tabla[indice];
-
             while (actual != null) {
-
                 if (actual.llave.equals(llave)) {
                     return actual.valor;
                 }
-
                 actual = actual.siguiente;
-
             }
-
             return null;
-
         }
+
         public boolean remove(K llave) {
-
             int indice = hash(llave);
-
             Nodo<K, V> actual = tabla[indice];
             Nodo<K, V> anterior = null;
-
             while (actual != null) {
-
                 if (actual.llave.equals(llave)) {
-
                     if (anterior == null)
                         tabla[indice] = actual.siguiente;
                     else
                         anterior.siguiente = actual.siguiente;
-
                     return true;
                 }
-
                 anterior = actual;
                 actual = actual.siguiente;
             }
-
             return false;
         }
     }

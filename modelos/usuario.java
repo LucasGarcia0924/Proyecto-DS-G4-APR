@@ -10,7 +10,10 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Scanner;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import modelos.engine.*;
 import vista.consola;
@@ -28,7 +31,11 @@ public class usuario {
     public User usuarioActivo;
 
     public usuario() {
-        this.escaner = new Scanner(System.in);
+        this(new Scanner(System.in));
+    }
+
+    public usuario(Scanner escaner) {
+        this.escaner = escaner != null ? escaner : new Scanner(System.in);
         this.consola = new consola();
         this.usuarioActivo = null;
     }
@@ -133,12 +140,109 @@ public class usuario {
         private void loadAllUsers() throws IOException {
             try (DirectoryStream<Path> ds = Files.newDirectoryStream(usersDir, "*.json")) {
                 for (Path p : ds) {
-                    User u = M.readValue(p.toFile(), User.class);
+                    User u = readUserFromJson(p);
                     if (u.mes <= 0) u.mes = 1;
                     if (u.socialLinks == null) u.socialLinks = new Hash<>();
                     users.put(u.nombreUsuario.toLowerCase(), u);
                 }
             }
+        }
+
+        private User readUserFromJson(Path path) throws IOException {
+            JsonNode root = M.readTree(path.toFile());
+            User u = new User();
+            u.nombreUsuario = textOf(root, "nombreUsuario");
+            u.contraseña = textOf(root, "contraseña");
+            u.preguntaHash = textOf(root, "preguntaHash");
+            u.respuestaHash = textOf(root, "respuestaHash");
+            u.salt = textOf(root, "salt");
+            u.equipo = readStringList(root.path("equipo"));
+            u.owned = readBooleanHash(root.path("owned"));
+            u.socialLinks = readIntegerHash(root.path("socialLinks"));
+            u.mes = root.path("mes").isMissingNode() ? 1 : root.path("mes").asInt(1);
+            u.lastModified = textOf(root, "lastModified");
+            if (u.equipo == null) u.equipo = new engine.Lista<>();
+            if (u.owned == null) u.owned = new Hash<>();
+            if (u.socialLinks == null) u.socialLinks = new Hash<>();
+            return u;
+        }
+
+        private JsonNode buildUserJson(User u) {
+            ObjectNode root = M.createObjectNode();
+            if (u.nombreUsuario != null) root.put("nombreUsuario", u.nombreUsuario);
+            if (u.contraseña != null) root.put("contraseña", u.contraseña);
+            if (u.preguntaHash != null) root.put("preguntaHash", u.preguntaHash);
+            if (u.respuestaHash != null) root.put("respuestaHash", u.respuestaHash);
+            if (u.salt != null) root.put("salt", u.salt);
+            root.set("equipo", writeStringList(u.equipo));
+            root.set("owned", writeBooleanHash(u.owned));
+            root.set("socialLinks", writeIntegerHash(u.socialLinks));
+            root.put("mes", u.mes);
+            if (u.lastModified != null) root.put("lastModified", u.lastModified);
+            return root;
+        }
+
+        private String textOf(JsonNode node, String field) {
+            return node.has(field) && !node.get(field).isNull() ? node.get(field).asText(null) : null;
+        }
+
+        private engine.Lista<String> readStringList(JsonNode node) {
+            engine.Lista<String> salida = new engine.Lista<>();
+            if (node == null || !node.isArray()) return salida;
+            for (JsonNode item : node) {
+                if (item != null && !item.isNull()) salida.add(item.asText());
+            }
+            return salida;
+        }
+
+        private Hash<String, Boolean> readBooleanHash(JsonNode node) {
+            Hash<String, Boolean> salida = new Hash<>();
+            if (node == null || !node.isObject()) return salida;
+            for (java.util.Iterator<java.util.Map.Entry<String, JsonNode>> it = node.fields(); it.hasNext(); ) {
+                java.util.Map.Entry<String, JsonNode> entry = it.next();
+                salida.put(entry.getKey(), entry.getValue().asBoolean(false));
+            }
+            return salida;
+        }
+
+        private Hash<String, Integer> readIntegerHash(JsonNode node) {
+            Hash<String, Integer> salida = new Hash<>();
+            if (node == null || !node.isObject()) return salida;
+            for (java.util.Iterator<java.util.Map.Entry<String, JsonNode>> it = node.fields(); it.hasNext(); ) {
+                java.util.Map.Entry<String, JsonNode> entry = it.next();
+                salida.put(entry.getKey(), entry.getValue().asInt(0));
+            }
+            return salida;
+        }
+
+        private ArrayNode writeStringList(engine.Lista<String> lista) {
+            ArrayNode salida = M.createArrayNode();
+            if (lista != null) {
+                for (String item : lista) {
+                    salida.add(item);
+                }
+            }
+            return salida;
+        }
+
+        private ObjectNode writeBooleanHash(Hash<String, Boolean> hash) {
+            ObjectNode salida = M.createObjectNode();
+            if (hash != null) {
+                for (Hash.Entry<String, Boolean> entry : hash.entrySet()) {
+                    salida.put(entry.key, entry.value != null && entry.value);
+                }
+            }
+            return salida;
+        }
+
+        private ObjectNode writeIntegerHash(Hash<String, Integer> hash) {
+            ObjectNode salida = M.createObjectNode();
+            if (hash != null) {
+                for (Hash.Entry<String, Integer> entry : hash.entrySet()) {
+                    salida.put(entry.key, entry.value != null ? entry.value : 0);
+                }
+            }
+            return salida;
         }
 
         public boolean usernameExists(String username) { return users.containsKey(username.toLowerCase()); }
@@ -152,7 +256,7 @@ public class usuario {
 
         public User recobrarContraseña() throws Exception {
             System.out.print("Ingresa tu nombre de usuario: ");
-            String username = escaner.nextLine();
+            String username = escaner.nextLine().trim();
 
             User u = getUser(username);
             if (u == null) {
@@ -162,7 +266,8 @@ public class usuario {
 
             System.out.println("Pregunta de seguridad: " + u.preguntaHash);
             System.out.print("Ingresa tu respuesta: ");
-            String respuesta = escaner.nextLine();
+            System.out.flush();
+            String respuesta = escaner.nextLine().trim();
 
             if (PasswordUtil.verifyPassword(respuesta, u.salt, u.respuestaHash)) {
                 System.out.print("Ingresa tu nueva contraseña: ");
@@ -179,7 +284,7 @@ public class usuario {
         public synchronized void saveUser(User u) throws IOException {
             u.lastModified = Instant.now().toString();
             Path out = usersDir.resolve(u.nombreUsuario + ".json");
-            M.writerWithDefaultPrettyPrinter().writeValue(out.toFile(), u);
+            M.writerWithDefaultPrettyPrinter().writeValue(out.toFile(), buildUserJson(u));
         }
 
         public User getUser(String username) { return users.get(username.toLowerCase()); }
@@ -404,86 +509,97 @@ public class usuario {
     }
     public void seleccionarUsuario() throws Exception {
         consola.menuUsuarios();
+        System.out.print("Selecciona una opción (1-3): ");
+        System.out.flush();
 
-        boolean flag = true;
-        while (flag == true) {
-            String opcion = escaner.nextLine();
-            switch (opcion) {
-                case "1" : {
-                    iniciarSesion();
-                    flag = false;
-                    break;
-                }
-                case "2" : {
-                    interfaz interfaz = new interfaz();
-                    interfaz.crearUsuario();
-                    System.out.println("\nAhora por favor vuelve a ingresar los datos para iniciar sesión");
-                    iniciarSesion();
-                    flag = false;    
-                    break;
-                }
-                case "3" : {
-                // Se rompe el bucle de selección pero no se continua el proceso de cambio de usuario
-                    flag = false;    
-                    break;
-                }
-                default:
-                     System.out.println("Opción no válida. Por favor, seleccione '1' o '2'.");
-                break;     
+        while (true) {
+            String opcion = escaner.nextLine().trim();
+            if (opcion.equals("1")) {
+                iniciarSesion();
+                return;
             }
-            // Se rompe el bucle de selección y se continua el proceso de cambio de usuario
-                    }
+            if (opcion.equals("2")) {
+                interfaz interfaz = new interfaz(this.escaner);
+                interfaz.crearUsuario();
+                System.out.println("\nAhora por favor vuelve a ingresar los datos para iniciar sesión");
+                iniciarSesion();
+                return;
+            }
+            if (opcion.equals("3")) {
+                return;
+            }
+
+            System.out.println("Opción no válida. Por favor, seleccione '1', '2' o '3'.");
+            consola.menuUsuarios();
+            System.out.print("Selecciona una opción (1-3): ");
+            System.out.flush();
+        }
     }
     public void iniciarSesion() throws Exception {
         managerUsuario mU = new managerUsuario();
-        System.out.print("Ingresa tu nombre de usuario: ");
-        String nombreUsuario = escaner.nextLine();
-        System.out.print("Ingresa tu contraseña: ");
-        String contraseña = escaner.nextLine();
+        int intentos = 0;
 
-        User user = mU.authenticate(nombreUsuario, contraseña);
-        if (user != null) {
-            System.out.println("Inicio de sesión exitoso. ¡Bienvenido, " + user.nombreUsuario + "!");
-            // Aquí puedes continuar con la lógica del programa después de un inicio de sesión exitoso
-            mU.setUsuarioActivo(user);
-
-        } else {
-            for (int i = 0; i < 3; i++){
-                System.out.println("Nombre de usuario o contraseña incorrectos. Intenta nuevamente.");
+        while (intentos < 3) {
+            try {
                 System.out.print("Ingresa tu nombre de usuario: ");
-                nombreUsuario = escaner.nextLine();
+                System.out.flush();
+                String nombreUsuario = escaner.nextLine().trim();
+                if (nombreUsuario.isEmpty()) {
+                    System.out.println("No ingresaste nombre de usuario. Intenta nuevamente.");
+                    continue;
+                }
+
                 System.out.print("Ingresa tu contraseña: ");
-                contraseña = escaner.nextLine();
-                user = mU.authenticate(nombreUsuario, contraseña);
+                System.out.flush();
+                String contraseña = escaner.nextLine();
+                if (contraseña == null || contraseña.isEmpty()) {
+                    System.out.println("No ingresaste contraseña. Intenta nuevamente.");
+                    continue;
+                }
+
+                User user = mU.authenticate(nombreUsuario, contraseña);
                 if (user != null) {
                     System.out.println("Inicio de sesión exitoso. ¡Bienvenido, " + user.nombreUsuario + "!");
                     mU.setUsuarioActivo(user);
-                    return; // Salir del método después de un inicio de sesión exitoso
+                    return;
                 }
-            }
-            System.out.println("Has excedido el número máximo de intentos.");
-            System.out.print("¿Deseas recuperar tu contraseña? (s/n): ");
-            String opcion = escaner.nextLine();
 
-            while (!opcion.equalsIgnoreCase("s") && !opcion.equalsIgnoreCase("n")) {
-                System.out.println("Opción no válida. Por favor, selecciona 's' o 'n'.");
-                System.out.print("¿Deseas recuperar tu contraseña? (s/n): ");
-                opcion = escaner.nextLine();
+                intentos++;
+                System.out.println("Nombre de usuario o contraseña incorrectos. Intenta nuevamente.");
+            } catch (java.util.NoSuchElementException e) {
+                System.out.println("\nNo se recibió más entrada. Regresando al menú principal.");
+                seleccionarUsuario();
+                return;
             }
-
-            if (opcion.equalsIgnoreCase("s")) {
-                user = mU.recobrarContraseña();
-                if (user != null) {
-                    iniciarSesion(); // Volver a iniciar sesión después de actualizar la contraseña
-                    return; // Salir del método después de actualizar la contraseña
-                }
-                System.out.println("Respuesta incorrecta. No se pudo recuperar la contraseña.");
-            } else {
-                System.out.println("Regresando al menú principal.");
-            }
-
-            System.out.println("Nombre de usuario o contraseña incorrectos. Intenta nuevamente.");
-            seleccionarUsuario(); // Volver a la selección de usuario
         }
+
+        System.out.println("Has excedido el número máximo de intentos.");
+        if (!escaner.hasNextLine()) {
+            System.out.println("No se recibió más entrada. Regresando al menú principal.");
+            seleccionarUsuario();
+            return;
+        }
+        System.out.print("¿Deseas recuperar tu contraseña? (s/n): ");
+        String opcion = escaner.nextLine().trim();
+
+        while (!opcion.equalsIgnoreCase("s") && !opcion.equalsIgnoreCase("n")) {
+            System.out.println("Opción no válida. Por favor, selecciona 's' o 'n'.");
+            System.out.print("¿Deseas recuperar tu contraseña? (s/n): ");
+            opcion = escaner.nextLine().trim();
+        }
+
+        if (opcion.equalsIgnoreCase("s")) {
+            User user = mU.recobrarContraseña();
+            if (user != null) {
+                System.out.println("Contraseña recuperada. Puedes volver a intentar iniciar sesión.");
+                seleccionarUsuario();
+                return;
+            }
+            System.out.println("Respuesta incorrecta. No se pudo recuperar la contraseña.");
+        } else {
+            System.out.println("Regresando al menú principal.");
+        }
+
+        seleccionarUsuario();
     }
 }
