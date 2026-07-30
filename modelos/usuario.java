@@ -129,7 +129,7 @@ public class usuario {
 
     public class managerUsuario {
         private final Path usersDir = Paths.get("Data/users");
-        private final ObjectMapper M = new ObjectMapper();
+        private final ObjectMapper M = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
         private final Hash<String, User> users = new Hash<>();
 
         public managerUsuario() throws IOException {

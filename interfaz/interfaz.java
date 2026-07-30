@@ -8,6 +8,8 @@ import java.time.Instant;
 import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import modelos.HashModule;
+import modelos.ListaModule;
 import modelos.engine.Persona;
 import modelos.usuario;
 import modelos.usuario.PasswordUtil;
@@ -137,7 +139,8 @@ public class interfaz {
         tu.mes = 4;
         tu.socialLinks = new modelos.engine.Hash<>();
         
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
+
         Path socialLinksPath = Paths.get("Data/socialLinks.json");
         
         // Cargar Social Links con manejo de errores
@@ -178,7 +181,7 @@ public class interfaz {
         }
 
         Path personasDir = Paths.get("Data/personas");
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
         modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
@@ -323,7 +326,7 @@ public class interfaz {
         }
 
         Path personasDir = Paths.get("Data/personas");
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
         modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
@@ -416,7 +419,7 @@ public class interfaz {
             }
 
             Path personasDir = Paths.get("Data/personas");
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
             modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
             try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
@@ -435,7 +438,7 @@ public class interfaz {
             indiceF.construirDe(personas);
             levelIndex.buildFrom(personas);
 
-            ObjectMapper mapperSL = new ObjectMapper();
+            ObjectMapper mapperSL = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
             Path socialLinksPath = Paths.get("Data/socialLinks.json");
             if (Files.exists(socialLinksPath)) {
                 try {
@@ -535,7 +538,7 @@ public class interfaz {
 
     private modelos.engine.Lista<modelos.engine.Persona> cargarPersonas() throws Exception {
         Path personasDir = Paths.get("Data/personas");
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
         modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
@@ -658,7 +661,8 @@ public class interfaz {
             Path socialLinksPath = Paths.get("Data/socialLinks.json");
             if (Files.exists(socialLinksPath)) {
                 try {
-                    modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                    ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
+                    modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
                     socialGraph.construirDesdeSocialLinks(slData.socialLinks);
                 } catch (Exception e) {
                     System.out.println("Error al cargar socialLinks.json en buscarPersona: " + e.getMessage());
@@ -873,7 +877,9 @@ public class interfaz {
             Path socialLinksPath = Paths.get("Data/socialLinks.json");
             if (Files.exists(socialLinksPath)) {
                 try {
-                    modelos.engine.SocialLinkData slData = new ObjectMapper().readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+                    ObjectMapper mapper = new ObjectMapper().registerModule(new ListaModule()).registerModule(new HashModule());
+                    modelos.engine.SocialLinkData slData = mapper.readValue(socialLinksPath.toFile(), modelos.engine.SocialLinkData.class);
+
                     socialGraph.construirDesdeSocialLinks(slData.socialLinks);
                 } catch (Exception e) {
                     System.out.println("Error al cargar socialLinks.json en verFusionesEspeciales: " + e.getMessage());
