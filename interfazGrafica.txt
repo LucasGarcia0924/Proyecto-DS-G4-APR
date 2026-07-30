@@ -1,0 +1,5 @@
+https://aistudio.google.com/apps/7ee90809-a72b-4fe6-ac22-b1bc474592ee?fullscreenApplet=true&showAssistant=true&showPreview=true
+
+usuario: prueba
+clave: 1234
+color -> rojo
