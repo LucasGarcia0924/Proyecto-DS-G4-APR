@@ -1,7 +1,16 @@
 package modelos;
 
+/**
+ * Clase que contiene todas las estructuras de datos manuales implementadas
+ * para el proyecto: Lista, Hash, Árbol, Grafo y MiHash.
+ * 
+ * @author Grupo 4 - Estructuras de Datos
+ */
 public class engine {
 
+    // ============================================================
+    // 1. LISTA ENLAZADA SIMPLE (Lista<T>)
+    // ============================================================
     public static class Lista<T> implements java.lang.Iterable<T> {
         private static class Nodo<T> {
             T dato;
@@ -99,6 +108,9 @@ public class engine {
         }
     }
 
+    // ============================================================
+    // 2. TABLA HASH CON ENCADENAMIENTO (Hash<K, V>)
+    // ============================================================
     public static class Hash<K, V> implements java.lang.Iterable<Hash.Entry<K, V>> {
         public static class Entry<K, V> {
             public K key;
@@ -220,39 +232,160 @@ public class engine {
         public java.util.Iterator<Entry<K, V>> iterator() { return entrySet().iterator(); }
     }
 
+    // ============================================================
+    // 3. ÁRBOL BINARIO DE BÚSQUEDA (Arbol<K, V>)
+    // ============================================================
     public static class Arbol<K, V> {
         public static <K, V> Arbol<K, V> crear() {
             return new Arbol<>();
         }
-        public static class Entry<K, V> { public K key; public V value; public Entry(K key, V value){ this.key = key; this.value = value; } }
+
+        public static class Entry<K, V> {
+            public K key;
+            public V value;
+            public Entry(K key, V value) { this.key = key; this.value = value; }
+        }
+
         public interface ValueFactory<K, V> { V create(K key); }
-        private static class Nodo<K, V> { K key; V value; Nodo<K, V> izquierda; Nodo<K, V> derecha; Nodo(K key, V value){ this.key = key; this.value = value; } }
-        private Nodo<K, V> raiz; private int tamaño;
-        public Arbol(){ raiz = null; tamaño = 0; }
-        @SuppressWarnings("unchecked") private int comparar(K a, K b){ if (a == null && b == null) return 0; if (a == null) return -1; if (b == null) return 1; if (a instanceof Comparable && b instanceof Comparable) return ((Comparable<Object>) a).compareTo(b); return a.toString().compareTo(b.toString()); }
-        public void put(K key, V value){ raiz = insertar(raiz, key, value); }
-        private Nodo<K, V> insertar(Nodo<K, V> actual, K key, V value){ if (actual == null){ tamaño++; return new Nodo<>(key, value); } int cmp = comparar(key, actual.key); if (cmp < 0) actual.izquierda = insertar(actual.izquierda, key, value); else if (cmp > 0) actual.derecha = insertar(actual.derecha, key, value); else actual.value = value; return actual; }
-        public V get(K key){ Nodo<K, V> actual = raiz; while (actual != null){ int cmp = comparar(key, actual.key); if (cmp == 0) return actual.value; actual = cmp < 0 ? actual.izquierda : actual.derecha; } return null; }
-        public V getOrDefault(K key, V defecto){ V valor = get(key); return valor != null ? valor : defecto; }
-        public boolean containsKey(K key){ return get(key) != null; }
-        public V computeIfAbsent(K key, ValueFactory<K, V> factory){ V existente = get(key); if (existente != null) return existente; V creado = factory.create(key); put(key, creado); return creado; }
-        public void clear(){ raiz = null; tamaño = 0; }
-        public int size(){ return tamaño; }
-        public Lista<K> keySet(){ Lista<K> salida = new Lista<>(); recorridoInOrder(raiz, salida); return salida; }
-        private void recorridoInOrder(Nodo<K, V> actual, Lista<K> salida){ if (actual == null) return; recorridoInOrder(actual.izquierda, salida); salida.add(actual.key); recorridoInOrder(actual.derecha, salida); }
-        public Lista<V> values(){ Lista<V> salida = new Lista<>(); recorridoInOrderValores(raiz, salida); return salida; }
-        private void recorridoInOrderValores(Nodo<K, V> actual, Lista<V> salida){ if (actual == null) return; recorridoInOrderValores(actual.izquierda, salida); salida.add(actual.value); recorridoInOrderValores(actual.derecha, salida); }
-        public Lista<Entry<K, V>> entrySet(){ Lista<Entry<K, V>> salida = new Lista<>(); recorridoInOrderEntradas(raiz, salida); return salida; }
-        private void recorridoInOrderEntradas(Nodo<K, V> actual, Lista<Entry<K, V>> salida){ if (actual == null) return; recorridoInOrderEntradas(actual.izquierda, salida); salida.add(new Entry<>(actual.key, actual.value)); recorridoInOrderEntradas(actual.derecha, salida); }
-        public Lista<K> descendingKeySet(){ Lista<K> salida = new Lista<>(); recorridoDescendente(raiz, salida); return salida; }
-        private void recorridoDescendente(Nodo<K, V> actual, Lista<K> salida){ if (actual == null) return; recorridoDescendente(actual.derecha, salida); salida.add(actual.key); recorridoDescendente(actual.izquierda, salida); }
-        public Lista<Entry<K, V>> subMap(K from, boolean fromInclusive, K to, boolean toInclusive){ Lista<Entry<K, V>> salida = new Lista<>(); recorrerRango(raiz, from, fromInclusive, to, toInclusive, salida); return salida; }
-        private void recorrerRango(Nodo<K, V> actual, K from, boolean fromInclusive, K to, boolean toInclusive, Lista<Entry<K, V>> salida){ if (actual == null) return; int cmpFrom = comparar(actual.key, from); int cmpTo = comparar(actual.key, to); boolean dentro = true; if (from != null && ((cmpFrom < 0) || (!fromInclusive && cmpFrom == 0))) dentro = false; if (to != null && ((cmpTo > 0) || (!toInclusive && cmpTo == 0))) dentro = false; if (dentro) salida.add(new Entry<>(actual.key, actual.value)); if (from == null || comparar(actual.key, from) > 0) recorrerRango(actual.izquierda, from, fromInclusive, to, toInclusive, salida); if (to == null || comparar(actual.key, to) < 0) recorrerRango(actual.derecha, from, fromInclusive, to, toInclusive, salida); }
+
+        private static class Nodo<K, V> {
+            K key;
+            V value;
+            Nodo<K, V> izquierda;
+            Nodo<K, V> derecha;
+            Nodo(K key, V value) { this.key = key; this.value = value; }
+        }
+
+        private Nodo<K, V> raiz;
+        private int tamaño;
+
+        public Arbol() { raiz = null; tamaño = 0; }
+
+        @SuppressWarnings("unchecked")
+        private int comparar(K a, K b) {
+            if (a == null && b == null) return 0;
+            if (a == null) return -1;
+            if (b == null) return 1;
+            if (a instanceof Comparable && b instanceof Comparable) {
+                return ((Comparable<Object>) a).compareTo(b);
+            }
+            return a.toString().compareTo(b.toString());
+        }
+
+        public void put(K key, V value) { raiz = insertar(raiz, key, value); }
+
+        private Nodo<K, V> insertar(Nodo<K, V> actual, K key, V value) {
+            if (actual == null) { tamaño++; return new Nodo<>(key, value); }
+            int cmp = comparar(key, actual.key);
+            if (cmp < 0) actual.izquierda = insertar(actual.izquierda, key, value);
+            else if (cmp > 0) actual.derecha = insertar(actual.derecha, key, value);
+            else actual.value = value;
+            return actual;
+        }
+
+        public V get(K key) {
+            Nodo<K, V> actual = raiz;
+            while (actual != null) {
+                int cmp = comparar(key, actual.key);
+                if (cmp == 0) return actual.value;
+                actual = cmp < 0 ? actual.izquierda : actual.derecha;
+            }
+            return null;
+        }
+
+        public V getOrDefault(K key, V defecto) {
+            V valor = get(key);
+            return valor != null ? valor : defecto;
+        }
+
+        public boolean containsKey(K key) { return get(key) != null; }
+
+        public V computeIfAbsent(K key, ValueFactory<K, V> factory) {
+            V existente = get(key);
+            if (existente != null) return existente;
+            V creado = factory.create(key);
+            put(key, creado);
+            return creado;
+        }
+
+        public void clear() { raiz = null; tamaño = 0; }
+
+        public int size() { return tamaño; }
+
+        public Lista<K> keySet() {
+            Lista<K> salida = new Lista<>();
+            recorridoInOrder(raiz, salida);
+            return salida;
+        }
+
+        private void recorridoInOrder(Nodo<K, V> actual, Lista<K> salida) {
+            if (actual == null) return;
+            recorridoInOrder(actual.izquierda, salida);
+            salida.add(actual.key);
+            recorridoInOrder(actual.derecha, salida);
+        }
+
+        public Lista<V> values() {
+            Lista<V> salida = new Lista<>();
+            recorridoInOrderValores(raiz, salida);
+            return salida;
+        }
+
+        private void recorridoInOrderValores(Nodo<K, V> actual, Lista<V> salida) {
+            if (actual == null) return;
+            recorridoInOrderValores(actual.izquierda, salida);
+            salida.add(actual.value);
+            recorridoInOrderValores(actual.derecha, salida);
+        }
+
+        public Lista<Entry<K, V>> entrySet() {
+            Lista<Entry<K, V>> salida = new Lista<>();
+            recorridoInOrderEntradas(raiz, salida);
+            return salida;
+        }
+
+        private void recorridoInOrderEntradas(Nodo<K, V> actual, Lista<Entry<K, V>> salida) {
+            if (actual == null) return;
+            recorridoInOrderEntradas(actual.izquierda, salida);
+            salida.add(new Entry<>(actual.key, actual.value));
+            recorridoInOrderEntradas(actual.derecha, salida);
+        }
+
+        public Lista<K> descendingKeySet() {
+            Lista<K> salida = new Lista<>();
+            recorridoDescendente(raiz, salida);
+            return salida;
+        }
+
+        private void recorridoDescendente(Nodo<K, V> actual, Lista<K> salida) {
+            if (actual == null) return;
+            recorridoDescendente(actual.derecha, salida);
+            salida.add(actual.key);
+            recorridoDescendente(actual.izquierda, salida);
+        }
+
+        public Lista<Entry<K, V>> subMap(K from, boolean fromInclusive, K to, boolean toInclusive) {
+            Lista<Entry<K, V>> salida = new Lista<>();
+            recorrerRango(raiz, from, fromInclusive, to, toInclusive, salida);
+            return salida;
+        }
+
+        private void recorrerRango(Nodo<K, V> actual, K from, boolean fromInclusive, K to, boolean toInclusive, Lista<Entry<K, V>> salida) {
+            if (actual == null) return;
+            int cmpFrom = comparar(actual.key, from);
+            int cmpTo = comparar(actual.key, to);
+            boolean dentro = true;
+            if (from != null && ((cmpFrom < 0) || (!fromInclusive && cmpFrom == 0))) dentro = false;
+            if (to != null && ((cmpTo > 0) || (!toInclusive && cmpTo == 0))) dentro = false;
+            if (dentro) salida.add(new Entry<>(actual.key, actual.value));
+            if (from == null || comparar(actual.key, from) > 0) recorrerRango(actual.izquierda, from, fromInclusive, to, toInclusive, salida);
+            if (to == null || comparar(actual.key, to) < 0) recorrerRango(actual.derecha, from, fromInclusive, to, toInclusive, salida);
+        }
     }
 
-    /* ---------------------------
-    MODELOS JSON / DOM
-    --------------------------- */
+    // ============================================================
+    // 4. MODELOS JSON / DOM
+    // ============================================================
     public static class Persona {
         public String nombre;
         public String arcano;
@@ -268,16 +401,16 @@ public class engine {
     }
 
     public static class FusionEntry {
-        public Lista<String> con;   // Pareja de fusión
-        public String resultado; // Persona obtenida
+        public Lista<String> con;
+        public String resultado;
     }
 
     public static class GeneratedByEntry {
-        public Lista<String> de; // Lista de personas
+        public Lista<String> de;
     }
 
     public static class specialEntry {
-        public Lista<String> de; // Lista de personas
+        public Lista<String> de;
     }
 
     public static class requiresEntry {
@@ -302,9 +435,9 @@ public class engine {
     }
 
     public static class Requisito {
-        public String npcDependiente; // nombre del otro NPC
-        public int nivelNecesario;    // rango mínimo requerido
-        public int mesMinimo;         // mes a partir del cual se puede subir
+        public String npcDependiente;
+        public int nivelNecesario;
+        public int mesMinimo;
     }
 
     public static class SocialLinkData {
@@ -319,9 +452,9 @@ public class engine {
         public java.util.List<Requisito> requisitos;
     }
 
-    /* ---------------------------
-    REGISTRY: Lista enlazada + índice auxiliar
-    --------------------------- */
+    // ============================================================
+    // 5. REGISTRO (Lista enlazada + índice Hash)
+    // ============================================================
     public static class Registro {
         public static class Node {
             Persona dato;
@@ -350,7 +483,9 @@ public class engine {
             return n == null ? null : n.dato;
         }
 
-        public Node nodoPorNombre(String name) { return indicePorNombre.get(name.toLowerCase()); }
+        public Node nodoPorNombre(String name) {
+            return indicePorNombre.get(name.toLowerCase());
+        }
 
         public Lista<Persona> toList() {
             Lista<Persona> out = new Lista<>();
@@ -370,9 +505,9 @@ public class engine {
         }
     }
 
-    /* ---------------------------
-    indicePorNivel
-    --------------------------- */
+    // ============================================================
+    // 6. INDICE POR NIVEL (Usa Arbol)
+    // ============================================================
     public static class indicePorNivel {
         private final Arbol<Integer, Lista<Persona>> indice = Arbol.crear();
 
@@ -404,9 +539,9 @@ public class engine {
         }
     }
 
-    /* ---------------------------
-    SocialGraph: NPCs y desbloqueos
-    --------------------------- */
+    // ============================================================
+    // 7. GRAFO DE SOCIAL LINKS (grafoSocialLinks)
+    // ============================================================
     public static class grafoSocialLinks {
         private final Hash<String, NPC> npcs = new Hash<>();
         private final Hash<String, String> aliasToCanonical = new Hash<>();
@@ -463,9 +598,6 @@ public class engine {
             }
         }
 
-        // ============================================================
-        // ✅ CORREGIDO: Acepta java.util.List en lugar de Lista
-        // ============================================================
         public void construirDesdeSocialLinks(java.util.List<SocialLinkEntry> entries) {
             npcs.clear();
             aliasToCanonical.clear();
@@ -640,9 +772,9 @@ public class engine {
         public Lista<NPC> allNPCs() { return npcs.values(); }
     }
 
-    /* ---------------------------
-    FusionIndex
-    --------------------------- */
+    // ============================================================
+    // 8. INDICE DE FUSIONES (Usa Hash)
+    // ============================================================
     public static class indiceFusiones {
         private final Hash<String, String> indicePar = new Hash<>();
 
@@ -681,9 +813,9 @@ public class engine {
         }
     }
 
-    /* ---------------------------
-    TEAM
-    --------------------------- */
+    // ============================================================
+    // 9. EQUIPO (Arreglo fijo)
+    // ============================================================
     public static class Equipo {
         public final Persona[] miembros;
         private final int capacidad;
@@ -735,18 +867,18 @@ public class engine {
         }
     }
 
+    // ============================================================
+    // 10. ÁRBOL BINARIO SIMPLE (ArbolSimple)
+    // ============================================================
     public static class ArbolSimple {
         private Nodo raiz;
 
-        public ArbolSimple() {
-            raiz = null;
-        }
-    
+        public ArbolSimple() { raiz = null; }
+
         public class Nodo {
             int dato;
             Nodo izquierda;
             Nodo derecha;
-
             public Nodo(int dato) {
                 this.dato = dato;
                 izquierda = null;
@@ -754,41 +886,33 @@ public class engine {
             }
         }
 
-        public void insertar(int dato) {
-            raiz = insertarRec(raiz, dato);
-        }
+        public void insertar(int dato) { raiz = insertarRec(raiz, dato); }
 
         private Nodo insertarRec(Nodo actual, int dato) {
-            if (actual == null)
-                return new Nodo(dato);
-            if (dato < actual.dato)
-                actual.izquierda = insertarRec(actual.izquierda, dato);
-            else if (dato > actual.dato)
-                actual.derecha = insertarRec(actual.derecha, dato);
+            if (actual == null) return new Nodo(dato);
+            if (dato < actual.dato) actual.izquierda = insertarRec(actual.izquierda, dato);
+            else if (dato > actual.dato) actual.derecha = insertarRec(actual.derecha, dato);
             return actual;
         }
 
-        public boolean buscar(int dato) {
-            return buscarRec(raiz, dato);
-        }
+        public boolean buscar(int dato) { return buscarRec(raiz, dato); }
 
         private boolean buscarRec(Nodo actual, int dato) {
-            if (actual == null)
-                return false;
-            if (actual.dato == dato)
-                return true;
-            if (dato < actual.dato)
-                return buscarRec(actual.izquierda, dato);
+            if (actual == null) return false;
+            if (actual.dato == dato) return true;
+            if (dato < actual.dato) return buscarRec(actual.izquierda, dato);
             return buscarRec(actual.derecha, dato);
         }
     }
 
+    // ============================================================
+    // 11. TABLA HASH SIMPLE (MiHash<K, V>)
+    // ============================================================
     public static class MiHash<K, V> {
         public class Nodo<K, V> {
             K llave;
             V valor;
             Nodo<K, V> siguiente;
-
             public Nodo(K llave, V valor) {
                 this.llave = llave;
                 this.valor = valor;
@@ -805,10 +929,8 @@ public class engine {
             tabla = (Nodo<K, V>[]) new Nodo[tamaño];
         }
 
-        private int hash(K llave) {
-            return Math.abs(llave.hashCode()) % tamaño;
-        }
-    
+        private int hash(K llave) { return Math.abs(llave.hashCode()) % tamaño; }
+
         public void put(K llave, V valor) {
             int indice = hash(llave);
             Nodo<K, V> nuevo = new Nodo<>(llave, valor);
@@ -817,9 +939,7 @@ public class engine {
                 return;
             }
             Nodo<K, V> actual = tabla[indice];
-            while (actual.siguiente != null) {
-                actual = actual.siguiente;
-            }
+            while (actual.siguiente != null) actual = actual.siguiente;
             actual.siguiente = nuevo;
         }
 
@@ -827,9 +947,7 @@ public class engine {
             int indice = hash(llave);
             Nodo<K, V> actual = tabla[indice];
             while (actual != null) {
-                if (actual.llave.equals(llave)) {
-                    return actual.valor;
-                }
+                if (actual.llave.equals(llave)) return actual.valor;
                 actual = actual.siguiente;
             }
             return null;
@@ -841,10 +959,8 @@ public class engine {
             Nodo<K, V> anterior = null;
             while (actual != null) {
                 if (actual.llave.equals(llave)) {
-                    if (anterior == null)
-                        tabla[indice] = actual.siguiente;
-                    else
-                        anterior.siguiente = actual.siguiente;
+                    if (anterior == null) tabla[indice] = actual.siguiente;
+                    else anterior.siguiente = actual.siguiente;
                     return true;
                 }
                 anterior = actual;
