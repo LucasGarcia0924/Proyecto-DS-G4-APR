@@ -8,13 +8,8 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import modelos.engine.*;
@@ -44,7 +39,7 @@ public class usuario {
         public String preguntaHash; // base64
         public String respuestaHash; // base64
         public String salt;         // base64
-        public List<String> equipo = new ArrayList<>(); // nombres
+        public engine.Lista<String> equipo = new engine.Lista<>(); // nombres
         public Hash<String, Boolean> owned = new Hash<>();   // nombres
         public Hash<String,Integer> socialLinks = new Hash<>();
         public int mes = 1;
@@ -53,22 +48,32 @@ public class usuario {
 
         public boolean addTeamMember(String nombrePersona) {
             if (nombrePersona == null || nombrePersona.isBlank()) return false;
-            return equipo.add(nombrePersona);
+            if (equipo.contains(nombrePersona)) return false;
+            equipo.add(nombrePersona);
+            return true;
         }
 
         public boolean removeTeamMember(String nombrePersona) {
             if (nombrePersona == null || nombrePersona.isBlank()) return false;
-            return equipo.removeIf(n -> n.equalsIgnoreCase(nombrePersona));
+            for (int i = 0; i < equipo.size(); i++) {
+                String actual = equipo.get(i);
+                if (actual != null && actual.equalsIgnoreCase(nombrePersona)) {
+                    equipo.remove(actual);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public boolean registerOwned(String nombrePersona) {
             if (nombrePersona == null || nombrePersona.isBlank()) return false;
-            return owned.add(nombrePersona);
+            owned.put(nombrePersona, true);
+            return true;
         }
 
         public boolean hasOwned(String nombrePersona) {
             if (nombrePersona == null || nombrePersona.isBlank()) return false;
-            return owned.contains(nombrePersona);
+            return owned.containsKey(nombrePersona);
         }
 
         public int getSocialLinkLevel(String npcName) {
@@ -118,7 +123,7 @@ public class usuario {
     public class managerUsuario {
         private final Path usersDir = Paths.get("Data/users");
         private final ObjectMapper M = new ObjectMapper();
-        private final ConcurrentHashMap<String, User> users = new ConcurrentHashMap<>();
+        private final Hash<String, User> users = new Hash<>();
 
         public managerUsuario() throws IOException {
             if (!Files.exists(usersDir)) Files.createDirectories(usersDir);
@@ -213,8 +218,8 @@ public class usuario {
             }
         }
 
-        public List<Persona> getEquipoComoPersonas() {
-            List<Persona> miembros = new ArrayList<>();
+        public engine.Lista<Persona> getEquipoComoPersonas() {
+            engine.Lista<Persona> miembros = new engine.Lista<>();
             for (String name : usuario.equipo) {
                 Persona p = registro.buscarPorNombre(name);
                 if (p != null) miembros.add(p);
@@ -224,7 +229,7 @@ public class usuario {
 
         public void mostrarEquipoDetallado() {
             System.out.println("Equipo actual:");
-            List<Persona> miembros = getEquipoComoPersonas();
+            engine.Lista<Persona> miembros = getEquipoComoPersonas();
             if (miembros.isEmpty()) {
                 System.out.println("<vacío>");
                 return;
@@ -254,7 +259,13 @@ public class usuario {
         public boolean releaseFromTeam(String nombrePersona, managerUsuario um) throws IOException {
             boolean removed = equipo.liberarPersona(nombrePersona);
             if (removed) {
-                usuario.equipo.removeIf(n -> n.equalsIgnoreCase(nombrePersona));
+                for (int i = 0; i < usuario.equipo.size(); i++) {
+                    String actual = usuario.equipo.get(i);
+                    if (actual != null && actual.equalsIgnoreCase(nombrePersona)) {
+                        usuario.equipo.remove(actual);
+                        break;
+                    }
+                }
                 um.saveUser(usuario);
                 return true;
             }
@@ -312,17 +323,25 @@ public class usuario {
 
         public void printRegistryByArcana() {
             System.out.println("Registro por arcano:");
-            Hash<String, List<Persona>> porArcano = new Hash<>();
+            Hash<String, engine.Lista<Persona>> porArcano = new Hash<>();
             for (Persona p : registro.toList()) {
-                porArcano.computeIfAbsent(p.arcano, k -> new ArrayList<>()).add(p);
+                engine.Lista<Persona> bucket = porArcano.get(p.arcano);
+                if (bucket == null) {
+                    bucket = new engine.Lista<>();
+                    porArcano.put(p.arcano, bucket);
+                }
+                bucket.add(p);
             }
 
-            List<String> arcanos = new ArrayList<>(porArcano.keySet());
-            arcanos.sort(String.CASE_INSENSITIVE_ORDER);
+            engine.Lista<String> arcanos = porArcano.keySet();
+            arcanos.sort();
 
-            for (String arcano : arcanos) {
+            for (int i = 0; i < arcanos.size(); i++) {
+                String arcano = arcanos.get(i);
                 System.out.println("\n[" + arcano + "]");
-                for (Persona p : porArcano.get(arcano)) {
+                engine.Lista<Persona> personasArcano = porArcano.get(arcano);
+                for (int j = 0; j < personasArcano.size(); j++) {
+                    Persona p = personasArcano.get(j);
                     System.out.println((usuario.hasOwned(p.nombre) ? "[X] " : "[ ] ") + p.nombre + " | Nivel: " + p.nivel);
                 }
             }

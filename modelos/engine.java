@@ -1,13 +1,251 @@
 package modelos;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-
 public class engine {
+
+    public static class Lista<T> implements java.lang.Iterable<T> {
+        private static class Nodo<T> {
+            T dato;
+            Nodo<T> siguiente;
+            Nodo(T dato) { this.dato = dato; }
+        }
+        private Nodo<T> cabeza;
+        private int tamaño;
+
+        public Lista() { cabeza = null; tamaño = 0; }
+
+        public void add(T dato) {
+            Nodo<T> nuevo = new Nodo<>(dato);
+            if (cabeza == null) { cabeza = nuevo; }
+            else {
+                Nodo<T> actual = cabeza;
+                while (actual.siguiente != null) actual = actual.siguiente;
+                actual.siguiente = nuevo;
+            }
+            tamaño++;
+        }
+
+        public void clear() { cabeza = null; tamaño = 0; }
+
+        public boolean contains(T dato) {
+            Nodo<T> actual = cabeza;
+            while (actual != null) {
+                if (dato == null ? actual.dato == null : dato.equals(actual.dato)) return true;
+                actual = actual.siguiente;
+            }
+            return false;
+        }
+
+        public T get(int index) {
+            if (index < 0 || index >= tamaño) return null;
+            Nodo<T> actual = cabeza;
+            for (int i = 0; i < index; i++) actual = actual.siguiente;
+            return actual.dato;
+        }
+
+        public boolean isEmpty() { return tamaño == 0; }
+
+        public boolean remove(T dato) {
+            if (cabeza == null) return false;
+            if (dato == null ? cabeza.dato == null : dato.equals(cabeza.dato)) {
+                cabeza = cabeza.siguiente;
+                tamaño--;
+                return true;
+            }
+            Nodo<T> anterior = cabeza;
+            Nodo<T> actual = cabeza.siguiente;
+            while (actual != null) {
+                if (dato == null ? actual.dato == null : dato.equals(actual.dato)) {
+                    anterior.siguiente = actual.siguiente;
+                    tamaño--;
+                    return true;
+                }
+                anterior = actual;
+                actual = actual.siguiente;
+            }
+            return false;
+        }
+
+        public int size() { return tamaño; }
+
+        public void sort() {
+            if (tamaño <= 1) return;
+            boolean cambio;
+            do {
+                cambio = false;
+                Nodo<T> actual = cabeza;
+                while (actual != null && actual.siguiente != null) {
+                    if (actual.dato instanceof Comparable && actual.siguiente.dato instanceof Comparable) {
+                        Comparable<T> a = (Comparable<T>) actual.dato;
+                        Comparable<T> b = (Comparable<T>) actual.siguiente.dato;
+                        if (a.compareTo((T) b) > 0) {
+                            T temp = actual.dato;
+                            actual.dato = actual.siguiente.dato;
+                            actual.siguiente.dato = temp;
+                            cambio = true;
+                        }
+                    }
+                    actual = actual.siguiente;
+                }
+            } while (cambio);
+        }
+
+        @Override
+        public java.util.Iterator<T> iterator() {
+            return new java.util.Iterator<T>() {
+                private Nodo<T> actual = cabeza;
+                @Override public boolean hasNext() { return actual != null; }
+                @Override public T next() { T valor = actual.dato; actual = actual.siguiente; return valor; }
+            };
+        }
+    }
+
+    public static class Hash<K, V> implements java.lang.Iterable<Hash.Entry<K, V>> {
+        public static class Entry<K, V> {
+            public K key;
+            public V value;
+            public Entry(K key, V value) { this.key = key; this.value = value; }
+        }
+
+        public interface ValueFactory<K, V> { V create(K key); }
+
+        private static class Nodo<K, V> {
+            K key;
+            V value;
+            Nodo<K, V> siguiente;
+            Nodo(K key, V value) { this.key = key; this.value = value; }
+        }
+
+        private Nodo<K, V>[] tabla;
+        private int capacidad;
+
+        @SuppressWarnings("unchecked")
+        public Hash() { this(16); }
+
+        @SuppressWarnings("unchecked")
+        public Hash(int capacidad) { this.capacidad = capacidad; this.tabla = (Nodo<K, V>[]) new Nodo[capacidad]; }
+
+        private int hash(K key) { int codigo = key == null ? 0 : key.hashCode(); return Math.abs(codigo) % capacidad; }
+
+        public void put(K key, V value) {
+            int indice = hash(key);
+            Nodo<K, V> actual = tabla[indice];
+            while (actual != null) {
+                if (key == null ? actual.key == null : key.equals(actual.key)) { actual.value = value; return; }
+                actual = actual.siguiente;
+            }
+            Nodo<K, V> nuevo = new Nodo<>(key, value);
+            nuevo.siguiente = tabla[indice];
+            tabla[indice] = nuevo;
+        }
+
+        public V get(K key) {
+            int indice = hash(key);
+            Nodo<K, V> actual = tabla[indice];
+            while (actual != null) {
+                if (key == null ? actual.key == null : key.equals(actual.key)) return actual.value;
+                actual = actual.siguiente;
+            }
+            return null;
+        }
+
+        public V getOrDefault(K key, V defecto) { V valor = get(key); return valor != null ? valor : defecto; }
+
+        public boolean containsKey(K key) { return get(key) != null; }
+
+        public V computeIfAbsent(K key, ValueFactory<K, V> factory) {
+            V existente = get(key);
+            if (existente != null) return existente;
+            V creado = factory.create(key);
+            put(key, creado);
+            return creado;
+        }
+
+        public boolean remove(K key) {
+            int indice = hash(key);
+            Nodo<K, V> actual = tabla[indice];
+            Nodo<K, V> anterior = null;
+            while (actual != null) {
+                if (key == null ? actual.key == null : key.equals(actual.key)) {
+                    if (anterior == null) tabla[indice] = actual.siguiente;
+                    else anterior.siguiente = actual.siguiente;
+                    return true;
+                }
+                anterior = actual;
+                actual = actual.siguiente;
+            }
+            return false;
+        }
+
+        public void clear() { for (int i = 0; i < capacidad; i++) tabla[i] = null; }
+
+        public int size() {
+            int cuenta = 0;
+            for (int i = 0; i < capacidad; i++) {
+                Nodo<K, V> actual = tabla[i];
+                while (actual != null) { cuenta++; actual = actual.siguiente; }
+            }
+            return cuenta;
+        }
+
+        public boolean isEmpty() { return size() == 0; }
+
+        public Lista<K> keySet() {
+            Lista<K> salida = new Lista<>();
+            for (int i = 0; i < capacidad; i++) {
+                Nodo<K, V> actual = tabla[i];
+                while (actual != null) { salida.add(actual.key); actual = actual.siguiente; }
+            }
+            return salida;
+        }
+
+        public Lista<V> values() {
+            Lista<V> salida = new Lista<>();
+            for (int i = 0; i < capacidad; i++) {
+                Nodo<K, V> actual = tabla[i];
+                while (actual != null) { salida.add(actual.value); actual = actual.siguiente; }
+            }
+            return salida;
+        }
+
+        public Lista<Entry<K, V>> entrySet() {
+            Lista<Entry<K, V>> salida = new Lista<>();
+            for (int i = 0; i < capacidad; i++) {
+                Nodo<K, V> actual = tabla[i];
+                while (actual != null) { salida.add(new Entry<>(actual.key, actual.value)); actual = actual.siguiente; }
+            }
+            return salida;
+        }
+
+        @Override
+        public java.util.Iterator<Entry<K, V>> iterator() { return entrySet().iterator(); }
+    }
+
+    public static class Arbol<K, V> {
+        public static class Entry<K, V> { public K key; public V value; public Entry(K key, V value){ this.key = key; this.value = value; } }
+        public interface ValueFactory<K, V> { V create(K key); }
+        private static class Nodo<K, V> { K key; V value; Nodo<K, V> izquierda; Nodo<K, V> derecha; Nodo(K key, V value){ this.key = key; this.value = value; } }
+        private Nodo<K, V> raiz; private int tamaño;
+        public Arbol(){ raiz = null; tamaño = 0; }
+        @SuppressWarnings("unchecked") private int comparar(K a, K b){ if (a == null && b == null) return 0; if (a == null) return -1; if (b == null) return 1; if (a instanceof Comparable && b instanceof Comparable) return ((Comparable<Object>) a).compareTo(b); return a.toString().compareTo(b.toString()); }
+        public void put(K key, V value){ raiz = insertar(raiz, key, value); }
+        private Nodo<K, V> insertar(Nodo<K, V> actual, K key, V value){ if (actual == null){ tamaño++; return new Nodo<>(key, value); } int cmp = comparar(key, actual.key); if (cmp < 0) actual.izquierda = insertar(actual.izquierda, key, value); else if (cmp > 0) actual.derecha = insertar(actual.derecha, key, value); else actual.value = value; return actual; }
+        public V get(K key){ Nodo<K, V> actual = raiz; while (actual != null){ int cmp = comparar(key, actual.key); if (cmp == 0) return actual.value; actual = cmp < 0 ? actual.izquierda : actual.derecha; } return null; }
+        public V getOrDefault(K key, V defecto){ V valor = get(key); return valor != null ? valor : defecto; }
+        public boolean containsKey(K key){ return get(key) != null; }
+        public V computeIfAbsent(K key, ValueFactory<K, V> factory){ V existente = get(key); if (existente != null) return existente; V creado = factory.create(key); put(key, creado); return creado; }
+        public void clear(){ raiz = null; tamaño = 0; }
+        public int size(){ return tamaño; }
+        public Lista<K> keySet(){ Lista<K> salida = new Lista<>(); recorridoInOrder(raiz, salida); return salida; }
+        private void recorridoInOrder(Nodo<K, V> actual, Lista<K> salida){ if (actual == null) return; recorridoInOrder(actual.izquierda, salida); salida.add(actual.key); recorridoInOrder(actual.derecha, salida); }
+        public Lista<V> values(){ Lista<V> salida = new Lista<>(); recorridoInOrderValores(raiz, salida); return salida; }
+        private void recorridoInOrderValores(Nodo<K, V> actual, Lista<V> salida){ if (actual == null) return; recorridoInOrderValores(actual.izquierda, salida); salida.add(actual.value); recorridoInOrderValores(actual.derecha, salida); }
+        public Lista<Entry<K, V>> entrySet(){ Lista<Entry<K, V>> salida = new Lista<>(); recorridoInOrderEntradas(raiz, salida); return salida; }
+        private void recorridoInOrderEntradas(Nodo<K, V> actual, Lista<Entry<K, V>> salida){ if (actual == null) return; recorridoInOrderEntradas(actual.izquierda, salida); salida.add(new Entry<>(actual.key, actual.value)); recorridoInOrderEntradas(actual.derecha, salida); }
+        public Lista<K> descendingKeySet(){ Lista<K> salida = new Lista<>(); recorridoDescendente(raiz, salida); return salida; }
+        private void recorridoDescendente(Nodo<K, V> actual, Lista<K> salida){ if (actual == null) return; recorridoDescendente(actual.derecha, salida); salida.add(actual.key); recorridoDescendente(actual.izquierda, salida); }
+        public Lista<Entry<K, V>> subMap(K from, boolean fromInclusive, K to, boolean toInclusive){ Lista<Entry<K, V>> salida = new Lista<>(); recorrerRango(raiz, from, fromInclusive, to, toInclusive, salida); return salida; }
+        private void recorrerRango(Nodo<K, V> actual, K from, boolean fromInclusive, K to, boolean toInclusive, Lista<Entry<K, V>> salida){ if (actual == null) return; int cmpFrom = comparar(actual.key, from); int cmpTo = comparar(actual.key, to); boolean dentro = true; if (from != null && ((cmpFrom < 0) || (!fromInclusive && cmpFrom == 0))) dentro = false; if (to != null && ((cmpTo > 0) || (!toInclusive && cmpTo == 0))) dentro = false; if (dentro) salida.add(new Entry<>(actual.key, actual.value)); if (from == null || comparar(actual.key, from) > 0) recorrerRango(actual.izquierda, from, fromInclusive, to, toInclusive, salida); if (to == null || comparar(actual.key, to) < 0) recorrerRango(actual.derecha, from, fromInclusive, to, toInclusive, salida); }
+    }
 
     /* ---------------------------
     MODELOS JSON / DOM
@@ -16,27 +254,27 @@ public class engine {
         public String nombre;
         public String arcano;
         public int nivel;
-        public List<FusionEntry> posiblesFusiones;
-        public List<GeneratedByEntry> generadoPor;
-        public List<specialEntry> fusionEspecial;
+        public Lista<FusionEntry> posiblesFusiones;
+        public Lista<GeneratedByEntry> generadoPor;
+        public Lista<specialEntry> fusionEspecial;
         public requiresEntry requisitoFusion;
-        public Map<String,Object> estadisticas;
+        public Hash<String,Object> estadisticas;
 
         public Persona() {}
         @Override public String toString() { return nombre + " [" + arcano + " Lv:" + nivel + "]"; }
     }
 
     public static class FusionEntry {
-        public List<String> con;   // Pareja de fusión
+        public Lista<String> con;   // Pareja de fusión
         public String resultado; // Persona obtenida
     }
 
     public static class GeneratedByEntry {
-        public List<String> de; // Lista de personas
+        public Lista<String> de; // Lista de personas
     }
 
     public static class specialEntry {
-        public List<String> de; // Lista de personas
+        public Lista<String> de; // Lista de personas
     }
 
     public static class requiresEntry {
@@ -49,14 +287,14 @@ public class engine {
         public int nivelActual;
         public int nivelMaximo;
         public String desbloquea;
-        public List<Requisito> requisitos = new ArrayList<>();
+        public Lista<Requisito> requisitos = new Lista<>();
 
         public NPC() {}
         public NPC(String nombre, int nivelMaximo) {
             this.nombre = nombre;
             this.nivelMaximo = nivelMaximo;
             this.nivelActual = 0;
-            this.requisitos = new ArrayList<>();
+            this.requisitos = new Lista<>();
         }
     }
 
@@ -67,15 +305,15 @@ public class engine {
     }
 
     public static class SocialLinkData {
-        public List<SocialLinkEntry> socialLinks;
+        public Lista<SocialLinkEntry> socialLinks;
     }
 
     public static class SocialLinkEntry {
         public String npc;
         public String arcano;
         public int nivelMaximo;
-        public List<String> desbloquea;
-        public List<Requisito> requisitos;
+        public Lista<String> desbloquea;
+        public Lista<Requisito> requisitos;
     }
 
     /* ---------------------------
@@ -94,7 +332,7 @@ public class engine {
         public Registro() { cabeza = null; tamaño = 0; }
 
         // Construye la lista enlazada desde colección (solo al inicio)
-        public void buildFrom(Collection<Persona> personas) {
+        public void buildFrom(Lista<Persona> personas) {
             Node cola = null;
             for (Persona p : personas) {
                 Node n = new Node(p);
@@ -112,8 +350,8 @@ public class engine {
 
         public Node nodoPorNombre(String name) { return indicePorNombre.get(name.toLowerCase()); }
 
-        public List<Persona> toList() {
-            List<Persona> out = new ArrayList<>();
+        public Lista<Persona> toList() {
+            Lista<Persona> out = new Lista<>();
             Node cur = cabeza;
             while (cur != null) { out.add(cur.dato); cur = cur.next; }
             return out;
@@ -135,26 +373,28 @@ public class engine {
     indicePorNivel: Permite consultar personas desde ciertos rangos
     --------------------------- */
     public static class indicePorNivel {
-        private final Arbol<Integer, List<Persona>> indice = new Arbol<>();
+        private final Arbol<Integer, Lista<Persona>> indice = new Arbol<>();
 
-        public void buildFrom(Collection<Persona> personas) {
+        public void buildFrom(Lista<Persona> personas) {
             indice.clear();
             for (Persona p : personas) {
-                indice.computeIfAbsent(p.nivel, k -> new ArrayList<>()).add(p);
+                indice.computeIfAbsent(p.nivel, k -> new Lista<>()).add(p);
             }
         }
 
         // Consulta por rango inclusive
-        public List<Persona> busquedaPorRango(int min, int max) {
-            List<Persona> out = new ArrayList<>();
-            NavigableMap<Integer, List<Persona>> sub = indice.subMap(min, true, max, true);
-            for (List<Persona> list : sub.values()) out.addAll(list);
+        public Lista<Persona> busquedaPorRango(int min, int max) {
+            Lista<Persona> out = new Lista<>();
+            Lista<Arbol.Entry<Integer, Lista<Persona>>> sub = indice.subMap(min, true, max, true);
+            for (Arbol.Entry<Integer, Lista<Persona>> entry : sub) {
+                for (Persona p : entry.value) out.add(p);
+            }
             return out;
         }
 
         // Obtener top N por nivel descendente
-        public List<Persona> topN(int n) {
-            List<Persona> out = new ArrayList<>();
+        public Lista<Persona> topN(int n) {
+            Lista<Persona> out = new Lista<>();
             for (Integer lvl : indice.descendingKeySet()) {
                 for (Persona p : indice.get(lvl)) {
                     out.add(p);
@@ -197,13 +437,13 @@ public class engine {
                 Integer canon = socialLevels.get(canonical);
                 if (canon != null) return canon;
             }
-            for (java.util.Map.Entry<String,Integer> entry : socialLevels.entrySet()) {
-                if (entry.getKey() != null && entry.getKey().equalsIgnoreCase(nombreNPC)) return entry.getValue();
+            for (Hash.Entry<String,Integer> entry : socialLevels.entrySet()) {
+                if (entry.key != null && entry.key.equalsIgnoreCase(nombreNPC)) return entry.value;
             }
             return 0;
         }
 
-        public void construirDe(List<NPC> npcList) {
+        public void construirDe(Lista<NPC> npcList) {
             npcs.clear();
             for (NPC n : npcList) {
                 if (n == null || n.nombre == null) continue;
@@ -211,7 +451,7 @@ public class engine {
             }
         }
 
-        public void construirDesdePersonas(Collection<Persona> personas) {
+        public void construirDesdePersonas(Lista<Persona> personas) {
             npcs.clear();
             for (Persona p : personas) {
                 if (p == null || p.requisitoFusion == null || p.requisitoFusion.socialLink == null || p.requisitoFusion.socialLink.isBlank()) continue;
@@ -224,7 +464,7 @@ public class engine {
             }
         }
 
-        public void construirDesdeSocialLinks(List<SocialLinkEntry> entries) {
+        public void construirDesdeSocialLinks(Lista<SocialLinkEntry> entries) {
             npcs.clear();
             aliasToCanonical.clear();
             if (entries == null) return;
@@ -236,7 +476,7 @@ public class engine {
                 npc.nivelMaximo = entry.nivelMaximo;
                 npc.nivelActual = 0;
                 npc.desbloquea = (entry.desbloquea == null || entry.desbloquea.isEmpty()) ? null : entry.desbloquea.get(0);
-                npc.requisitos = entry.requisitos == null ? new ArrayList<>() : entry.requisitos;
+                npc.requisitos = entry.requisitos == null ? new Lista<>() : entry.requisitos;
                 npcs.put(npc.nombre, npc);
                 if (npc.nombre.equalsIgnoreCase("Bunkichi y Mitsuko")) {
                     aliasToCanonical.put("bunkichi y mitsuku", npc.nombre);
@@ -249,7 +489,7 @@ public class engine {
             if (npc == null || npc.requisitos == null || npc.requisitos.isEmpty()) {
                 return "Ninguno";
             }
-            List<String> partes = new ArrayList<>();
+            Lista<String> partes = new Lista<>();
             for (Requisito req : npc.requisitos) {
                 StringBuilder sb = new StringBuilder();
                 if (req.npcDependiente != null && !req.npcDependiente.isBlank()) {
@@ -306,18 +546,18 @@ public class engine {
             return level >= required;
         }
 
-        public void ensureNPCsFor(Collection<String> nombres) {
+        public void ensureNPCsFor(Lista<String> nombres) {
             if (nombres == null) return;
             for (String nombre : nombres) {
                 ensureNPC(nombre);
             }
         }
 
-        public void syncLevels(Map<String,Integer> socialLevels) {
+        public void syncLevels(Hash<String,Integer> socialLevels) {
             if (socialLevels == null) return;
-            for (java.util.Map.Entry<String,Integer> entry : socialLevels.entrySet()) {
-                String npcName = entry.getKey();
-                int level = entry.getValue() == null ? 0 : entry.getValue();
+            for (Hash.Entry<String,Integer> entry : socialLevels.entrySet()) {
+                String npcName = entry.key;
+                int level = entry.value == null ? 0 : entry.value;
                 String canonical = resolveName(npcName);
                 ensureNPC(canonical);
                 NPC npc = npcs.get(canonical);
@@ -396,7 +636,7 @@ public class engine {
             return null;
         }
 
-        public Collection<NPC> allNPCs() { return npcs.values(); }
+        public Lista<NPC> allNPCs() { return npcs.values(); }
     }
 
     /* ---------------------------
@@ -405,20 +645,26 @@ public class engine {
     public static class indiceFusiones {
         private final Hash<String, String> indicePar = new Hash<>();
 
-        private String keyNames(List<String> names) {
-            List<String> s = new ArrayList<>(names);
-            s.sort(String.CASE_INSENSITIVE_ORDER);
-            return String.join("|", s);
+        private String keyNames(Lista<String> names) {
+            Lista<String> s = new Lista<>();
+            for (String name : names) s.add(name);
+            s.sort();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < s.size(); i++) {
+                if (i > 0) sb.append('|');
+                sb.append(s.get(i));
+            }
+            return sb.toString();
         }
 
-        public void construirDe(Collection<Persona> personas) {
+        public void construirDe(Lista<Persona> personas) {
         indicePar.clear();
             for (Persona p : personas) {
                 if (p.posiblesFusiones == null) continue;
                 for (FusionEntry fe : p.posiblesFusiones) {
-                    List<String> nombres = new ArrayList<>();
+                    Lista<String> nombres = new Lista<>();
                     nombres.add(p.nombre);
-                    nombres.addAll(fe.con);
+                    for (String nombre : fe.con) nombres.add(nombre);
                     String k = keyNames(nombres);
                     indicePar.put(k, fe.resultado);
                 }
@@ -427,7 +673,10 @@ public class engine {
 
         // Obtener el resultado de fusionar dos personas
         public String resultadoFusion(engine.Persona a, engine.Persona b) {
-            String pairKey = keyNames(Arrays.asList(a.nombre, b.nombre));
+            Lista<String> names = new Lista<>();
+            names.add(a.nombre);
+            names.add(b.nombre);
+            String pairKey = keyNames(names);
             return indicePar.get(pairKey);
         }
     }
@@ -489,11 +738,11 @@ public class engine {
             }
         }
     }
-    public class Arbol {
+    public static class ArbolSimple {
 
         private Nodo raiz;
 
-        public Arbol() {
+        public ArbolSimple() {
             raiz = null;
         }
     

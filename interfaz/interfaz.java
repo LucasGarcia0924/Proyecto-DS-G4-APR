@@ -5,10 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -107,7 +103,8 @@ public class interfaz {
         tu.contraseña = hash;
         tu.preguntaHash = pregunta;
         tu.respuestaHash = respuestaHash;
-        tu.equipo = new ArrayList<>(Arrays.asList("Orpheus"));
+        tu.equipo = new modelos.engine.Lista<>();
+        tu.equipo.add("Orpheus");
         tu.owned = new modelos.engine.Hash<>();
         tu.registerOwned("Orpheus");
         tu.mes = 4;
@@ -124,12 +121,13 @@ public class interfaz {
                 }
             }
         } else {
-            for (String npc : Arrays.asList("S.E.E.S.","Kenji Tomochika","Fuuka Yamagishi",
+            String[] npcs = {"S.E.E.S.","Kenji Tomochika","Fuuka Yamagishi",
             "Mitsuru Kirijo","Hidetoshi Odagiri","Bunkichi y Mitsuko","Yukari Takeba",
             "Kazushi Miyamoto", "Chihiro Fushimi", "Maya", "Keisuke Hiraga","Yuko Nishiwaki",
             "Maiko Oohashi","Pharos","Bebe","Presidente Tanaka", "Mutatsu","Mamoru Hayase",
             "Nozomi Suemitsu", "Nozomi Suemitsu","Akinari Kamiki","Equipo Aniquilación de Nyx", "Aigis",
-            "Junpei Iori", "Akihiko Sanada", "Ken Amada", "Koromaru", "Shinjiro Aragaki", "Ryoji Mochizuki")) {
+            "Junpei Iori", "Akihiko Sanada", "Ken Amada", "Koromaru", "Shinjiro Aragaki", "Ryoji Mochizuki"};
+            for (String npc : npcs) {
                 tu.socialLinks.put(npc, 0);
             }
         }
@@ -149,7 +147,7 @@ public class interfaz {
 
         Path personasDir = Paths.get("Data/personas");
         ObjectMapper mapper = new ObjectMapper();
-        List<modelos.engine.Persona> personas = new ArrayList<>();
+        modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
             for (Path p : ds) {
@@ -290,7 +288,7 @@ public class interfaz {
 
         Path personasDir = Paths.get("Data/personas");
         ObjectMapper mapper = new ObjectMapper();
-        List<modelos.engine.Persona> personas = new ArrayList<>();
+        modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
             for (Path p : ds) {
@@ -377,7 +375,7 @@ public class interfaz {
 
             Path personasDir = Paths.get("Data/personas");
             ObjectMapper mapper = new ObjectMapper();
-            List<modelos.engine.Persona> personas = new ArrayList<>();
+            modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
             try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
                 for (Path p : ds) {
@@ -417,10 +415,11 @@ public class interfaz {
                 switch (opcion) {
                     case "1":
                         System.out.println(BOLD + "Social links del usuario:" + RESET);
-                        List<String> lines = new ArrayList<>();
-                        for (Map.Entry<String, Integer> entry : tu.socialLinks.entrySet()) {
-                            String npc = entry.getKey();
-                            int nivel = entry.getValue();
+                        modelos.engine.Lista<String> lines = new modelos.engine.Lista<>();
+                        for (int i = 0; i < tu.socialLinks.entrySet().size(); i++) {
+                            modelos.engine.Hash.Entry<String, Integer> entry = tu.socialLinks.entrySet().get(i);
+                            String npc = entry.key;
+                            int nivel = entry.value;
                             String arcano = socialGraph.getArcano(npc);
                             String unlocked = socialGraph.getUnlockedPersona(npc);
                             String bloquea = unlocked == null ? "ninguno" : unlocked;
@@ -487,10 +486,10 @@ public class interfaz {
         }
     }
 
-    private List<modelos.engine.Persona> cargarPersonas() throws Exception {
+    private modelos.engine.Lista<modelos.engine.Persona> cargarPersonas() throws Exception {
         Path personasDir = Paths.get("Data/personas");
         ObjectMapper mapper = new ObjectMapper();
-        List<modelos.engine.Persona> personas = new ArrayList<>();
+        modelos.engine.Lista<modelos.engine.Persona> personas = new modelos.engine.Lista<>();
 
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(personasDir, "*.json")) {
             for (Path p : ds) {
@@ -502,10 +501,11 @@ public class interfaz {
         return personas;
     }
 
-    private List<String> parseIngredientNames(List<String> source) {
-        List<String> ingredients = new ArrayList<>();
+    private modelos.engine.Lista<String> parseIngredientNames(modelos.engine.Lista<String> source) {
+        modelos.engine.Lista<String> ingredients = new modelos.engine.Lista<>();
         if (source == null) return ingredients;
-        for (String item : source) {
+        for (int i = 0; i < source.size(); i++) {
+            String item = source.get(i);
             if (item == null) continue;
             for (String part : item.split(",")) {
                 String name = part.trim();
@@ -547,16 +547,18 @@ public class interfaz {
 
         if (persona.estadisticas != null && !persona.estadisticas.isEmpty()) {
             System.out.println("Estadísticas:");
-            persona.estadisticas.forEach((k, v) -> System.out.println("  - " + k + ": " + v));
+            for (modelos.engine.Hash.Entry<String, Object> entry : persona.estadisticas.entrySet()) {
+                System.out.println("  - " + entry.key + ": " + entry.value);
+            }
         }
 
         if (persona.generadoPor != null && !persona.generadoPor.isEmpty()) {
             System.out.println("\nFusiones normales para obtener a " + persona.nombre + ":");
             int contador = 1;
             for (modelos.engine.GeneratedByEntry entry : persona.generadoPor) {
-                List<String> ingredients = parseIngredientNames(entry.de);
+                modelos.engine.Lista<String> ingredients = parseIngredientNames(entry.de);
                 if (ingredients.isEmpty()) continue;
-                List<String> decorated = new ArrayList<>();
+                modelos.engine.Lista<String> decorated = new modelos.engine.Lista<>();
                 int teamCount = 0;
                 for (String ingredient : ingredients) {
                     if (isTeamMember(ingredient, userView)) {
@@ -579,9 +581,9 @@ public class interfaz {
             System.out.println("\nFusión especial disponible para esta persona:");
             int contador = 1;
             for (modelos.engine.specialEntry entry : persona.fusionEspecial) {
-                List<String> ingredients = parseIngredientNames(entry.de);
+                modelos.engine.Lista<String> ingredients = parseIngredientNames(entry.de);
                 if (ingredients.isEmpty()) continue;
-                List<String> decorated = new ArrayList<>();
+                modelos.engine.Lista<String> decorated = new modelos.engine.Lista<>();
                 for (String ingredient : ingredients) {
                     if (isTeamMember(ingredient, userView)) {
                         decorated.add(ingredient + " (EN EQUIPO)");
@@ -607,7 +609,7 @@ public class interfaz {
                 return;
             }
 
-            List<modelos.engine.Persona> personas = cargarPersonas();
+            modelos.engine.Lista<modelos.engine.Persona> personas = cargarPersonas();
             modelos.engine.Registro registro = new modelos.engine.Registro();
             registro.buildFrom(personas);
             modelos.engine.indiceFusiones indiceF = new modelos.engine.indiceFusiones();
@@ -630,7 +632,7 @@ public class interfaz {
                 consola.mostrarMenuBusqueda();
                 System.out.print("Opción: ");
                 String opcion = escaner.nextLine();
-                List<modelos.engine.Persona> resultados = new ArrayList<>();
+                modelos.engine.Lista<modelos.engine.Persona> resultados = new modelos.engine.Lista<>();
 
                 switch (opcion) {
                     case "1":
@@ -724,22 +726,23 @@ public class interfaz {
         }
     }
 
-    private List<List<String>> obtenerRecetasEspeciales(modelos.engine.Persona persona) {
-        List<List<String>> recetas = new ArrayList<>();
+    private modelos.engine.Lista<modelos.engine.Lista<String>> obtenerRecetasEspeciales(modelos.engine.Persona persona) {
+        modelos.engine.Lista<modelos.engine.Lista<String>> recetas = new modelos.engine.Lista<>();
         if (persona == null || persona.fusionEspecial == null) return recetas;
         for (modelos.engine.specialEntry entry : persona.fusionEspecial) {
-            List<String> ingredients = parseIngredientNames(entry.de);
+            modelos.engine.Lista<String> ingredients = parseIngredientNames(entry.de);
             if (!ingredients.isEmpty()) recetas.add(ingredients);
         }
         return recetas;
     }
 
     private String buildSpecialFusionDescription(modelos.engine.Persona persona, usuario.UserView userView) {
-        List<List<String>> recetas = obtenerRecetasEspeciales(persona);
+        modelos.engine.Lista<modelos.engine.Lista<String>> recetas = obtenerRecetasEspeciales(persona);
         if (recetas.isEmpty()) return "Sin datos de fusión especial";
-        List<String> lines = new ArrayList<>();
-        for (List<String> receta : recetas) {
-            List<String> decorated = new ArrayList<>();
+        modelos.engine.Lista<String> lines = new modelos.engine.Lista<>();
+        for (int i = 0; i < recetas.size(); i++) {
+            modelos.engine.Lista<String> receta = recetas.get(i);
+            modelos.engine.Lista<String> decorated = new modelos.engine.Lista<>();
             for (String ingredient : receta) {
                 if (isTeamMember(ingredient, userView)) {
                     decorated.add(ingredient + " (EN EQUIPO)");
@@ -760,15 +763,15 @@ public class interfaz {
             System.out.println("Este persona ya está en tu equipo.");
             return;
         }
-        List<List<String>> recetas = obtenerRecetasEspeciales(objetivo);
+        modelos.engine.Lista<modelos.engine.Lista<String>> recetas = obtenerRecetasEspeciales(objetivo);
         if (recetas.isEmpty()) {
             System.out.println("No existe una receta especial válida para esta persona.");
             return;
         }
-        List<String> ingredientes = recetas.get(0);
+        modelos.engine.Lista<String> ingredientes = recetas.get(0);
 
-        List<String> faltantes = new ArrayList<>();
-        List<String> aLiberar = new ArrayList<>();
+        modelos.engine.Lista<String> faltantes = new modelos.engine.Lista<>();
+        modelos.engine.Lista<String> aLiberar = new modelos.engine.Lista<>();
         for (String ing : ingredientes) {
             if (isTeamMember(ing, userView)) {
                 aLiberar.add(ing);
@@ -816,7 +819,7 @@ public class interfaz {
                 return;
             }
 
-            List<modelos.engine.Persona> personas = cargarPersonas();
+            modelos.engine.Lista<modelos.engine.Persona> personas = cargarPersonas();
             modelos.engine.Registro registro = new modelos.engine.Registro();
             registro.buildFrom(personas);
             modelos.engine.indiceFusiones indiceF = new modelos.engine.indiceFusiones();
@@ -833,7 +836,7 @@ public class interfaz {
             }
 
             usuario.UserView userView = new usuario().new UserView(tu, registro, indiceF, socialGraph, levelIndex, 12);
-            List<modelos.engine.Persona> especiales = new ArrayList<>();
+            modelos.engine.Lista<modelos.engine.Persona> especiales = new modelos.engine.Lista<>();
             for (modelos.engine.Persona p : registro.toList()) {
                 if (p.fusionEspecial != null && !p.fusionEspecial.isEmpty()) {
                     especiales.add(p);
